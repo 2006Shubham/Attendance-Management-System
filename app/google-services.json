@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440175035692",
+    "project_id": "test001-yg7",
+    "storage_bucket": "test001-yg7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440175035692:android:c6d4f6dd4d15db88b19889",
+        "android_client_info": {
+          "package_name": "com.shubhamdeshmukh.attendencemanagementsystem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASDoKyW0xiAI_KyrYK_nvuUjE1PgWH58I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
