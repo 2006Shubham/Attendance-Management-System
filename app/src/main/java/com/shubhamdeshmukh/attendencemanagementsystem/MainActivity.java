@@ -1,10 +1,13 @@
 package com.shubhamdeshmukh.attendencemanagementsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.BuildConfig;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,9 +29,11 @@ import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String  TAG = "YashGames2007";
+    public static final String  TAG = "YashGames2007";
     private final String ID_COUNT_KEY = "ID_COUNT";
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance("https://test001-yg7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+    private FirebaseDatabase database;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +48,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Write Code Here
+        Log.d(TAG, "In Main 1");
+        String dbAccessLink = getString(R.string.FIREBASE_DB_ACCESS_LINK);
+        database = FirebaseDatabase.getInstance(dbAccessLink);
+        mAuth = FirebaseAuth.getInstance();
+        authenticate();
         manageInput();
     }
 
-    private void manageInput()
-    {
+    private void authenticate() {
+        TextView idText = findViewById(R.id.loginID);
+        Button logoutButton = findViewById(R.id.buttonLogout);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user == null) {
+            fireLoginActivity();
+        }
+        else {
+            Log.d(TAG, "In Main");
+            idText.setText(user.getEmail());
+        }
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                fireLoginActivity();
+            }
+        });
+    }
+
+    private void manageInput() {
         EditText inputField = findViewById(R.id.data);
         Button sendButton = findViewById(R.id.sendData);
 
@@ -59,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getCurrentIDCount(final ValueCallback<Object> callback)
-    {
+    private void getCurrentIDCount(final ValueCallback<Object> callback) {
         DatabaseReference idCountRef = database.getReference(ID_COUNT_KEY);
 
         idCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -84,8 +118,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void testFirebase(String data)
-    {
+    private void testFirebase(String data) {
         getCurrentIDCount(new ValueCallback<Object>() {
             @Override
             public void onReceiveValue(Object value) {
@@ -140,4 +173,10 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
+    private void fireLoginActivity()
+    {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
