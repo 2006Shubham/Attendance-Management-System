@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         teacher.addSubject("Cloud Computing", "6N201");
         teacher.addSubject("Computer Network", "6N203");
 
-        DatabaseReference node = database.getReference("Teacher");
+        DatabaseReference node = database.getReference("XYZ");
         node.setValue(teacher);
         Log.d(TAG, "trialCode   : Teacher Info: " + teacher.printInfo());
 

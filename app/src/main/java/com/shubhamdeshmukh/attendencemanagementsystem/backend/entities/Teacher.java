@@ -29,6 +29,11 @@ public class Teacher {
         this.subjects.add(new Subject(name, code));
     }
 
+    public void addSubject(Subject subject)
+    {
+        this.subjects.add(subject);
+    }
+
     public String printInfo()
     {
         return "Name: " + this.name + " Subjects: " + this.subjects;

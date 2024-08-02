@@ -1,14 +1,23 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.backend;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shubhamdeshmukh.attendencemanagementsystem.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.DateEntry;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Student;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.StudentStatus;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,15 +30,28 @@ public class FirebaseDBConnection {
     }
     public void trialCode()
     {
-        Class _class = new Class();
-        _class.name = "AIML 3rd Year";
-        _class.attendance = new ArrayList<>();
-        Map<Student, Boolean> a1 = new HashMap<>();
-        a1.put(new Student("224001", "Tushar Ambhore"), false);
-        a1.put(new Student("224002", "Yash Bhavsar"), true);
+        StudentStatus studentStatus = new StudentStatus("226008", "Shubham Deshmukh", true);
 
-        _class.attendance.add(a1);
+        DateEntry dateEntry = new DateEntry(new Date(2024, 8, 2));
+        dateEntry.addStudentStatus(studentStatus);
 
-        database.getReference("Teacher").setValue(_class);
+        Attendance attendance = new Attendance();
+        attendance.addDateEntry(dateEntry);
+
+        Class _class = new Class("CO 3rd Year");
+        _class.addAttendance(attendance);
+
+        Category category = new Category("Lecture");
+        category.addClass(_class);
+
+        Subject subject = new Subject("Cloud Computing", "6S403");
+        subject.addCategory(category);
+
+        Teacher teacher = new Teacher("P V Sontakke");
+        teacher.addSubject(subject);
+
+        DatabaseReference node = database.getReference("Example");
+        node.setValue(teacher);
+        Log.d(MainActivity.TAG, "trialCode: Success" + teacher.printInfo());
     }
 }

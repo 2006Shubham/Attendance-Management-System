@@ -2,10 +2,12 @@ package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class Subject {
-    String name;
-    String code;
-    CategoryList categories;
+    public String name;
+    public String code;
+    public ArrayList<Category> categoryList;
 
     public Subject() {}
 
@@ -13,6 +15,12 @@ public class Subject {
     {
         this.name = name;
         this.code = code;
+        this.categoryList = new ArrayList<>();
+    }
+
+    public void addCategory(Category category)
+    {
+        this.categoryList.add(category);
     }
 
     public String getName() {
