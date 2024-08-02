@@ -10,12 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private final String ID_COUNT_KEY = "ID_COUNT";
 
     private FirebaseDatabase database;
+    private FirebaseDBConnection dbConnection;
     private FirebaseAuth mAuth;
 
     @Override
@@ -54,6 +59,39 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         authenticate();
         manageInput();
+//        trialCode();
+        dbConnection = new FirebaseDBConnection(dbAccessLink);
+        dbConnection.trialCode();
+    }
+
+    private void trialCode()
+    {
+        Teacher teacher = new Teacher("P V Sontakke");
+        teacher.addSubject("Cloud Computing", "6N201");
+        teacher.addSubject("Computer Network", "6N203");
+
+        DatabaseReference node = database.getReference("Teacher");
+        node.setValue(teacher);
+        Log.d(TAG, "trialCode   : Teacher Info: " + teacher.printInfo());
+
+        // Get a node
+        node.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Teacher teacher = snapshot.getValue(Teacher.class);
+                    Log.d(TAG, "onDataChange: Teacher Info: " + teacher.printInfo());
+
+                } else {
+                    Log.d(TAG, "onDataChange: Value doesn't exist");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void authenticate() {
