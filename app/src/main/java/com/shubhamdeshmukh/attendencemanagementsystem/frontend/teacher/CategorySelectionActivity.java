@@ -37,12 +37,6 @@ public class CategorySelectionActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
         lecture = findViewById(R.id.Practical);
         practical = findViewById(R.id.Lecture);
 
