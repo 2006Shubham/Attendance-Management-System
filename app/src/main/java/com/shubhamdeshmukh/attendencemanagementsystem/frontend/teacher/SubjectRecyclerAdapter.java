@@ -1,10 +1,13 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecyclerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Subject> subjects_array_list = new ArrayList<>();
+    ArrayList<Subject> subjects_array_list;
 
     public SubjectRecyclerAdapter(Context context,ArrayList<Subject> subjects_array_list){
         this.subjects_array_list = subjects_array_list;
@@ -46,7 +49,7 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
         return subjects_array_list.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView subname,coursecode;
 

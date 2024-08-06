@@ -56,6 +56,7 @@ public class TeacherSubjectPortalActivity extends AppCompatActivity {
                     SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(getApplicationContext(),sub_array_list);
                     recyclerView.setAdapter(subjectRecyclerAdapter);
                     Log.d(MainActivity.TAG, "onReceiveValue: Valid Ref");
+
                 }
                 else {
                     Log.d(MainActivity.TAG, "onReceiveValue: NULL Ref");
