@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 
@@ -47,11 +48,18 @@ public class TeacherSubjectPortalActivity extends AppCompatActivity {
         dbConnection.getAccount(new ValueCallback<Object>() {
 
             @Override
-            public void onReceiveValue(Object o) {
-                Teacher teacher = (Teacher) o;
-                sub_array_list = teacher.getSubjects();
-                SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(getApplicationContext(),sub_array_list);
-                recyclerView.setAdapter(subjectRecyclerAdapter);
+            public void onReceiveValue(Object obj) {
+                if (obj != null)
+                {
+                    Teacher teacher = (Teacher) obj;
+                    sub_array_list = teacher.getSubjects();
+                    SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(getApplicationContext(),sub_array_list);
+                    recyclerView.setAdapter(subjectRecyclerAdapter);
+                    Log.d(MainActivity.TAG, "onReceiveValue: Valid Ref");
+                }
+                else {
+                    Log.d(MainActivity.TAG, "onReceiveValue: NULL Ref");
+                }
             }
         });
     }
