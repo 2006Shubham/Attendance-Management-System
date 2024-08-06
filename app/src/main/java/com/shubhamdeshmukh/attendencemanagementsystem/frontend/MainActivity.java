@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         manageInput();
         FirebaseDBConnection.fetchAccounts();
 //        trialCode();
-        dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
         FirebaseDBConnection.setUserId(MainActivity.mAuth.getCurrentUser().getUid());
+        dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
 //        dbConnection.trialCode();
     }
 

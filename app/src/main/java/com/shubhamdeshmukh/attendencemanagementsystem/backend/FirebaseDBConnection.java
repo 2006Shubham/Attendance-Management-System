@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Accounts;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Account;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
@@ -35,7 +36,7 @@ public class FirebaseDBConnection {
 
     private final FirebaseDatabase database;
     private final FirebaseAuth mAuth;
-    private static ArrayList<Account> accountList;
+    private static Accounts accountList;
 
     private static String uid;
 
@@ -73,22 +74,23 @@ public class FirebaseDBConnection {
         subject2.addCategory(category);
 
         Teacher teacher1 = new Teacher("P V Sontakke", FirebaseDBConnection.uid);
+        Log.d(MainActivity.TAG, "trialCode: UID: " + FirebaseDBConnection.uid);
         teacher1.addSubject(subject1);
         teacher1.addSubject(subject2);
         Teacher teacher2 = new Teacher("N V Patil", "5678");
         teacher2.addSubject(subject1);
         teacher2.addSubject(subject2);
 
-        Monitor monitor1 = new Monitor("Shubham Deshmukh", "226008", "CO 3rd Year");
-        Monitor monitor2 = new Monitor("Yash Bhavsar", "224002", "AN 3rd Year");
+        Monitor monitor1 = new Monitor("Shubham Deshmukh", "226008", "1234", "CO 3rd Year");
+        Monitor monitor2 = new Monitor("Yash Bhavsar", "224002", "1234", "AN 3rd Year");
 
-        DatabaseReference node1 = database.getReference("Accounts").child("0");
+        DatabaseReference node1 = database.getReference("Accounts").child("accounts").child("0");
         node1.setValue(teacher1);
-        DatabaseReference node2 = database.getReference("Accounts").child("1");
-        node2.setValue(teacher1);
-        DatabaseReference node3 = database.getReference("Accounts").child("2");
+        DatabaseReference node2 = database.getReference("Accounts").child("accounts").child("1");
+        node2.setValue(teacher2);
+        DatabaseReference node3 = database.getReference("Accounts").child("accounts").child("2");
         node3.setValue(monitor1);
-        DatabaseReference node4 = database.getReference("Accounts").child("3");
+        DatabaseReference node4 = database.getReference("Accounts").child("accounts").child("3");
         node4.setValue(monitor2);
 
         Log.d(MainActivity.TAG, "trialCode: Success" + teacher1.printInfo());
@@ -142,7 +144,7 @@ public class FirebaseDBConnection {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists())
                 {
-                    FirebaseDBConnection.accountList = (ArrayList<Account>) snapshot.getValue();
+                    FirebaseDBConnection.accountList = snapshot.getValue(Accounts.class);
                     Log.d(MainActivity.TAG, "onDataChange: AccountList");
                 }
                 else {
@@ -162,12 +164,12 @@ public class FirebaseDBConnection {
         Account accountRef = null;
         if (FirebaseDBConnection.accountList != null)
         {
-            for (int i = 0; i < FirebaseDBConnection.accountList.size(); i++) {
-                if (Objects.equals(FirebaseDBConnection.accountList.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
+            for (int i = 0; i < FirebaseDBConnection.accountList.accounts.size(); i++) {
+                if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
                 {
-                    if (Objects.equals(FirebaseDBConnection.accountList.get(i).getType(), "Teacher"))
+                    if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getType(), "Teacher"))
                     {
-                        DatabaseReference teacherRef = database.getReference("Accounts").child(String.valueOf(i));
+                        DatabaseReference teacherRef = database.getReference("Accounts").child("accounts").child(String.valueOf(i));
                         teacherRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -184,9 +186,9 @@ public class FirebaseDBConnection {
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
                     }
-                    else if (Objects.equals(FirebaseDBConnection.accountList.get(i).getType(), "Monitor"))
+                    else if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getType(), "Monitor"))
                     {
-                        DatabaseReference monitorRef = database.getReference("Accounts").child(String.valueOf(i));
+                        DatabaseReference monitorRef = database.getReference("Accounts").child("accounts").child(String.valueOf(i));
                         monitorRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -203,5 +205,6 @@ public class FirebaseDBConnection {
                 }
             }
         }
+        callback.onReceiveValue(null);
     }
 }
