@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 // Defines a Class Entity - like 'AIML 3rd Year', 'CO 2nd Year', etc.
 public class Class {
-    public String name;    // Ex. "AIML 3rd Year"
-    public ArrayList<Attendance> attendanceList;
+    private String name;    // Ex. "AIML 3rd Year"
+    private ArrayList<Attendance> attendanceList;
 
     public Class() {}
 
@@ -17,5 +17,13 @@ public class Class {
 
     public void addAttendance(Attendance attendance) {
         this.attendanceList.add(attendance);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Attendance> getAttendanceList() {
+        return attendanceList;
     }
 }

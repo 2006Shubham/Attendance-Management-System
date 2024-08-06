@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DateEntry {
-    public Date date;
-    public ArrayList<StudentStatus> students;
+    private Date date;
+    private ArrayList<StudentStatus> students;
+
+    public DateEntry() {};
 
     public DateEntry(Date date)
     {
@@ -16,5 +18,13 @@ public class DateEntry {
     public void addStudentStatus(StudentStatus studentStatus)
     {
         this.students.add(studentStatus);
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public ArrayList<StudentStatus> getStudents() {
+        return students;
     }
 }

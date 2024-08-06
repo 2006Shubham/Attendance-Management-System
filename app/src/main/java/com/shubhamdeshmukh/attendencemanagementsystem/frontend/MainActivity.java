@@ -60,38 +60,38 @@ public class MainActivity extends AppCompatActivity {
         authenticate();
         manageInput();
 //        trialCode();
-        dbConnection = new FirebaseDBConnection(dbAccessLink);
-        dbConnection.trialCode();
+        dbConnection = new FirebaseDBConnection(database, mAuth);
+//        dbConnection.trialCode();
     }
 
     private void trialCode()
     {
-        Teacher teacher = new Teacher("P V Sontakke");
-        teacher.addSubject("Cloud Computing", "6N201");
-        teacher.addSubject("Computer Network", "6N203");
-
-        DatabaseReference node = database.getReference("XYZ");
-        node.setValue(teacher);
-        Log.d(TAG, "trialCode   : Teacher Info: " + teacher.printInfo());
-
-        // Get a node
-        node.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Teacher teacher = snapshot.getValue(Teacher.class);
-                    Log.d(TAG, "onDataChange: Teacher Info: " + teacher.printInfo());
-
-                } else {
-                    Log.d(TAG, "onDataChange: Value doesn't exist");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        Teacher teacher = new Teacher("P V Sontakke");
+//        teacher.addSubject("Cloud Computing", "6N201");
+//        teacher.addSubject("Computer Network", "6N203");
+//
+//        DatabaseReference node = database.getReference("XYZ");
+//        node.setValue(teacher);
+//        Log.d(TAG, "trialCode   : Teacher Info: " + teacher.printInfo());
+//
+//        // Get a node
+//        node.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    Teacher teacher = snapshot.getValue(Teacher.class);
+//                    Log.d(TAG, "onDataChange: Teacher Info: " + teacher.printInfo());
+//
+//                } else {
+//                    Log.d(TAG, "onDataChange: Value doesn't exist");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void authenticate() {

@@ -3,7 +3,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
 import java.util.ArrayList;
 
 public class Attendance {
-    public ArrayList<DateEntry> dateEntryList;
+    private ArrayList<DateEntry> dateEntryList;
 
     public Attendance()
     {
@@ -13,5 +13,9 @@ public class Attendance {
     public void addDateEntry(DateEntry dateEntry)
     {
         this.dateEntryList.add(dateEntry);
+    }
+
+    public ArrayList<DateEntry> getDateEntryList() {
+        return dateEntryList;
     }
 }

@@ -4,29 +4,27 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class Teacher {
-    String name;
-    ArrayList<Subject> subjects;
+public class Teacher extends Account{
 
-    public Teacher() {}
+    private ArrayList<Subject> subjects;
+
+    public Teacher() { super("Teacher"); }
 
     public Teacher(String name)
     {
-        this.name = name;
+        super("Teacher");
+        this.setName(name);
         this.subjects = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    public Teacher(String name, String userID)
+    {
+        super(name, userID, "Teacher");
+        this.subjects = new ArrayList<>();
     }
 
     public ArrayList<Subject> getSubjects() {
         return subjects;
-    }
-
-    public void addSubject(String name, String code)
-    {
-        this.subjects.add(new Subject(name, code));
     }
 
     public void addSubject(Subject subject)
@@ -36,6 +34,6 @@ public class Teacher {
 
     public String printInfo()
     {
-        return "Name: " + this.name + " Subjects: " + this.subjects;
+        return "Name: " + this.getName() + " Subjects: " + this.subjects;
     }
 }
