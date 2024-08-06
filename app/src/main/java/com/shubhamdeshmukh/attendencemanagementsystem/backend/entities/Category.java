@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Category {
-   public  String name; // Lecture / Practical
-    public ArrayList<Class> classList;
+    private String name; // Lecture / Practical
+    private ArrayList<Class> classList;
+
+    public Category() {};
 
     public Category(String name) {
         this.name = name;
@@ -17,4 +19,11 @@ public class Category {
         this.classList.add(_class);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Class> getClassList() {
+        return classList;
+    }
 }

@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class Subject {
-    public String name;
-    public String code;
-    public ArrayList<Category> categoryList;
+    private String name;
+    private String code;
+    private ArrayList<Category> categoryList;
 
     public Subject() {}
 
@@ -30,6 +30,8 @@ public class Subject {
     public String getCode() {
         return code;
     }
+
+    public ArrayList<Category> getCategoryList() { return categoryList; }
 
     @NonNull
     @Override

@@ -1,14 +1,23 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.backend;
 
 import android.util.Log;
+import android.webkit.ValueCallback;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.shubhamdeshmukh.attendencemanagementsystem.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Account;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.DateEntry;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Monitor;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Student;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.StudentStatus;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
@@ -20,13 +29,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FirebaseDBConnection {
 
-    private FirebaseDatabase database;
-    public FirebaseDBConnection(String dbAccessLink)
+    private final FirebaseDatabase database;
+    private final FirebaseAuth mAuth;
+    private static ArrayList<Account> accountList;
+
+    public FirebaseDBConnection(FirebaseDatabase database, FirebaseAuth mAuth)
     {
-        database = FirebaseDatabase.getInstance(dbAccessLink);
+        this.database = database;
+        this.mAuth = mAuth;
+        trialCode();
+        fetchAccounts();
     }
     public void trialCode()
     {
@@ -44,14 +60,147 @@ public class FirebaseDBConnection {
         Category category = new Category("Lecture");
         category.addClass(_class);
 
-        Subject subject = new Subject("Cloud Computing", "6S403");
-        subject.addCategory(category);
+        Subject subject1 = new Subject("Cloud Computing", "6S403");
+        Subject subject2 = new Subject("Computer Network", "6N401");
+        subject1.addCategory(category);
+        subject2.addCategory(category);
 
-        Teacher teacher = new Teacher("P V Sontakke");
-        teacher.addSubject(subject);
+        Teacher teacher1 = new Teacher("P V Sontakke", "1234");
+        teacher1.addSubject(subject1);
+        teacher1.addSubject(subject2);
+        Teacher teacher2 = new Teacher("N V Patil", "5678");
+        teacher2.addSubject(subject1);
+        teacher2.addSubject(subject2);
 
-        DatabaseReference node = database.getReference("Example");
-        node.setValue(teacher);
-        Log.d(MainActivity.TAG, "trialCode: Success" + teacher.printInfo());
+        Monitor monitor1 = new Monitor("Shubham Deshmukh", "226008", "CO 3rd Year");
+        Monitor monitor2 = new Monitor("Yash Bhavsar", "224002", "AN 3rd Year");
+
+        DatabaseReference node1 = database.getReference("Accounts").child("0");
+        node1.setValue(teacher1);
+        DatabaseReference node2 = database.getReference("Accounts").child("1");
+        node2.setValue(teacher1);
+        DatabaseReference node3 = database.getReference("Accounts").child("2");
+        node3.setValue(monitor1);
+        DatabaseReference node4 = database.getReference("Accounts").child("3");
+        node4.setValue(monitor2);
+
+        Log.d(MainActivity.TAG, "trialCode: Success" + teacher1.printInfo());
+        Log.d(MainActivity.TAG, "trialCode: Success" + teacher2.printInfo());
+
+        node3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 if (snapshot.exists()) {
+                     Account teacher = snapshot.getValue(Account.class);
+
+                     if (teacher != null)
+                     {
+//                    Log.d(MainActivity.TAG, "trialCode: Success" + teacher.printInfo());
+                         if (Objects.equals(teacher.getType(), "Teacher"))
+                         {
+                             Teacher t = snapshot.getValue(Teacher.class);
+                             Log.d(MainActivity.TAG, "onDataChange: Teacher");
+                             DatabaseReference node = database.getReference("New Example");
+                             node.setValue(t);
+                         }
+                         else if (Objects.equals(teacher.getType(), "Monitor"))
+                         {
+                             Student t = snapshot.getValue(Student.class);
+                             Log.d(MainActivity.TAG, "onDataChange: Monitor");
+                             DatabaseReference node = database.getReference("New Example");
+                         }
+                         Log.d(MainActivity.TAG, "Something Else:" + teacher.getType());
+                     }
+                     else
+                         Log.d(MainActivity.TAG, "trialCode: NULL Teacher");
+
+                } else {
+                    Log.d(MainActivity.TAG, "onDataChange: Value doesn't exist");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void fetchAccounts()
+    {
+        DatabaseReference accountsRef = database.getReference("Accounts");
+
+        accountsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseDBConnection.accountList = (ArrayList<Account>) snapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getAccount(final ValueCallback<Object> callback)
+    {
+        Account accountRef = null;
+        if (FirebaseDBConnection.accountList != null)
+        {
+            for (int i = 0; i < FirebaseDBConnection.accountList.size(); i++) {
+                if (Objects.equals(FirebaseDBConnection.accountList.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
+                {
+                    if (Objects.equals(FirebaseDBConnection.accountList.get(i).getType(), "Teacher"))
+                    {
+                        DatabaseReference teacherRef = database.getReference("Accounts").child(String.valueOf(i));
+                        teacherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Teacher teacher = snapshot.getValue(Teacher.class);
+                                    callback.onReceiveValue(teacher);
+                                    Log.d(MainActivity.TAG, "onDataChange: Teacher Info: " + teacher.printInfo());
+
+                                } else {
+                                    Log.d(MainActivity.TAG, "onDataChange: Value doesn't exist");
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                    else if (Objects.equals(FirebaseDBConnection.accountList.get(i).getType(), "Monitor"))
+                    {
+                        DatabaseReference monitorRef = database.getReference("Accounts").child(String.valueOf(i));
+                        monitorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Monitor monitor = snapshot.getValue(Monitor.class);
+                                    callback.onReceiveValue(monitor);
+                                    Log.d(MainActivity.TAG, "onDataChange: Monitor Info: " + monitor.printInfo());
+
+                                } else {
+                                    Log.d(MainActivity.TAG, "onDataChange: Value doesn't exist");
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    private void setAccount()
+    {
+        database.getReference("Accounts");
+
+        if (mAuth.getCurrentUser() != null)
+        {
+            mAuth.getCurrentUser().getUid();
+        }
     }
 }

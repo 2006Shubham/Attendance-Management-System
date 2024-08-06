@@ -2,11 +2,21 @@ package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
 
 // Represents a Student entity - Like 'Yash Bhavsar - 224002', 'Shubham Deshmukh - 226008', etc
 public class Student {
-    public String ID;
-    public String name;
+    private String id;
+    private String name;
 
-    public Student(String ID, String name) {
-        this.ID = ID;
+    public Student() {}
+
+    public Student(String id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }
