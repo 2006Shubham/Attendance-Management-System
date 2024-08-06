@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.os.Bundle;
 
@@ -10,9 +10,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shubhamdeshmukh.attendencemanagementsystem.R;
+
 import java.util.ArrayList;
 
-public class GetAttendance extends AppCompatActivity {
+public class AttendanceViewActivity extends AppCompatActivity {
 
 
     ArrayList<AttendanceRecyclerDataModel> attendanceRecyclerDataModels = new ArrayList<>();
@@ -21,7 +23,7 @@ public class GetAttendance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_get_attendance);
+        setContentView(R.layout.activity_attendance_view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

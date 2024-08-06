@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 public class AttendanceRecyclerDataModel {
 

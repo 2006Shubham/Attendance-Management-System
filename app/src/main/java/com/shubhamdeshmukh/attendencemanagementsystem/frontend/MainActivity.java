@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,13 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.login.LoginActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

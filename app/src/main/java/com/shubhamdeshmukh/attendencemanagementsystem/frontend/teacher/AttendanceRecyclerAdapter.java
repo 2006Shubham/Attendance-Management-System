@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.shubhamdeshmukh.attendencemanagementsystem.R;
 
 import java.util.ArrayList;
 

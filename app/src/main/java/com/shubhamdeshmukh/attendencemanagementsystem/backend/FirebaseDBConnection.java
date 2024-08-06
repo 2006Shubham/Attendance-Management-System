@@ -4,22 +4,16 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.shubhamdeshmukh.attendencemanagementsystem.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.DateEntry;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Student;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.StudentStatus;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FirebaseDBConnection {
 

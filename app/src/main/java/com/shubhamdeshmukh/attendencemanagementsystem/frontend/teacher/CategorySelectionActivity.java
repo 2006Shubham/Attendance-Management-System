@@ -1,6 +1,5 @@
-package com.shubhamdeshmukh.attendencemanagementsystem;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
-import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,15 +12,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.shubhamdeshmukh.attendencemanagementsystem.R;
 
-public class CategorySelection extends AppCompatActivity {
+public class CategorySelectionActivity extends AppCompatActivity {
 
     CardView lecture ,practical;
 
@@ -77,7 +73,7 @@ public class CategorySelection extends AppCompatActivity {
         TextView item2 = dialogView.findViewById(R.id.item2);
         TextView item3 = dialogView.findViewById(R.id.item3);
 
-       Intent intent = new Intent(this,GetAttendance.class);
+       Intent intent = new Intent(this, AttendanceViewActivity.class);
 
         item1.setOnClickListener(new View.OnClickListener() {
             @Override
