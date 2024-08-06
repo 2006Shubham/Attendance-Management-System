@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecyclerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Subject>subjects_array_list = new ArrayList<>();
+    ArrayList<Subject> subjects_array_list = new ArrayList<>();
 
     public SubjectRecyclerAdapter(Context context,ArrayList<Subject> subjects_array_list){
         this.subjects_array_list = subjects_array_list;
@@ -36,8 +36,8 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
     @Override
     public void onBindViewHolder(@NonNull SubjectRecyclerAdapter.ViewHolder holder, int position) {
 
-        holder.subname.setText(subjects_array_list.get(position).name);
-        holder.coursecode.setText(subjects_array_list.get(position).code);
+        holder.subname.setText(subjects_array_list.get(position).getName());
+        holder.coursecode.setText(subjects_array_list.get(position).getCode());
 
     }
 

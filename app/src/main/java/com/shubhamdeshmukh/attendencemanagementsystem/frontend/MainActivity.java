@@ -27,6 +27,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.login.LoginActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.TeacherSubjectPortalActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String  TAG = "YashGames2007";
     private final String ID_COUNT_KEY = "ID_COUNT";
 
-    private FirebaseDatabase database;
+    public static FirebaseDatabase database;
     private FirebaseDBConnection dbConnection;
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,14 @@ public class MainActivity extends AppCompatActivity {
         // Write Code Here
         Log.d(TAG, "In Main 1");
         String dbAccessLink = getString(R.string.FIREBASE_DB_ACCESS_LINK);
-        database = FirebaseDatabase.getInstance(dbAccessLink);
-        mAuth = FirebaseAuth.getInstance();
+        MainActivity.database = FirebaseDatabase.getInstance(dbAccessLink);
+        MainActivity.mAuth = FirebaseAuth.getInstance();
         authenticate();
         manageInput();
+        FirebaseDBConnection.fetchAccounts();
 //        trialCode();
-        dbConnection = new FirebaseDBConnection(database, mAuth);
+        dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+        FirebaseDBConnection.setUserId(MainActivity.mAuth.getCurrentUser().getUid());
 //        dbConnection.trialCode();
     }
 
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         EditText inputField = findViewById(R.id.data);
         Button sendButton = findViewById(R.id.sendData);
 
+        Intent intent = new Intent(this, TeacherSubjectPortalActivity.class);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 String data = inputField.getText().toString();
                 testFirebase(data);
                 inputField.setText("");
+
+                startActivity(intent);
+                finish();
+
+
             }
         });
     }

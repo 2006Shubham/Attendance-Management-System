@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.shubhamdeshmukh.attendencemanagementsystem.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Account;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
@@ -37,13 +37,20 @@ public class FirebaseDBConnection {
     private final FirebaseAuth mAuth;
     private static ArrayList<Account> accountList;
 
+    private static String uid;
+
     public FirebaseDBConnection(FirebaseDatabase database, FirebaseAuth mAuth)
     {
         this.database = database;
         this.mAuth = mAuth;
+//        fetchAccounts();
         trialCode();
-        fetchAccounts();
     }
+
+    public static void setUserId(String uid) {
+        FirebaseDBConnection.uid = uid;
+    }
+
     public void trialCode()
     {
         StudentStatus studentStatus = new StudentStatus("226008", "Shubham Deshmukh", true);
@@ -65,7 +72,7 @@ public class FirebaseDBConnection {
         subject1.addCategory(category);
         subject2.addCategory(category);
 
-        Teacher teacher1 = new Teacher("P V Sontakke", "1234");
+        Teacher teacher1 = new Teacher("P V Sontakke", FirebaseDBConnection.uid);
         teacher1.addSubject(subject1);
         teacher1.addSubject(subject2);
         Teacher teacher2 = new Teacher("N V Patil", "5678");
@@ -126,14 +133,21 @@ public class FirebaseDBConnection {
         });
     }
 
-    private void fetchAccounts()
+    public static void fetchAccounts()
     {
-        DatabaseReference accountsRef = database.getReference("Accounts");
+        DatabaseReference accountsRef = MainActivity.database.getReference("Accounts");
 
-        accountsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        accountsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                FirebaseDBConnection.accountList = (ArrayList<Account>) snapshot.getValue();
+                if (snapshot.exists())
+                {
+                    FirebaseDBConnection.accountList = (ArrayList<Account>) snapshot.getValue();
+                    Log.d(MainActivity.TAG, "onDataChange: AccountList");
+                }
+                else {
+                    Log.d(MainActivity.TAG, "onDataChange: NULL Accounts");
+                }
             }
 
             @Override
@@ -180,12 +194,14 @@ public class FirebaseDBConnection {
                                     Monitor monitor = snapshot.getValue(Monitor.class);
                                     callback.onReceiveValue(monitor);
                                     Log.d(MainActivity.TAG, "onDataChange: Monitor Info: " + monitor.printInfo());
-
-        Teacher teacher = new Teacher("P V Sontakke");
-        teacher.addSubject(subject);
-
-        DatabaseReference node = database.getReference("Example");
-        node.setValue(teacher);
-        Log.d(MainActivity.TAG, "trialCode: Success" + teacher.printInfo());
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                }
+            }
+        }
     }
 }

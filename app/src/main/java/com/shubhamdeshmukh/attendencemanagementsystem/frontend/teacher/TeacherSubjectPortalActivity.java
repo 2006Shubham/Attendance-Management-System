@@ -3,6 +3,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.ValueCallback;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
 
@@ -37,9 +41,18 @@ public class TeacherSubjectPortalActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
-        SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(this,sub_array_list);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setAdapter(subjectRecyclerAdapter);
+        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+        dbConnection.getAccount(new ValueCallback<Object>() {
 
+            @Override
+            public void onReceiveValue(Object o) {
+                Teacher teacher = (Teacher) o;
+                sub_array_list = teacher.getSubjects();
+                SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(getApplicationContext(),sub_array_list);
+                recyclerView.setAdapter(subjectRecyclerAdapter);
+            }
+        });
     }
 }
