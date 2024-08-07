@@ -62,16 +62,24 @@ public class FirebaseDBConnection {
         Attendance attendance = new Attendance();
         attendance.addDateEntry(dateEntry);
 
-        Class _class = new Class("CO 3rd Year");
-        _class.addAttendance(attendance);
+        Class _class1 = new Class("CO 3rd Year");
+        Class _class2 = new Class("AI 3rd Year");
+        _class1.addAttendance(attendance);
+        _class2.addAttendance(attendance);
 
-        Category category = new Category("Lecture");
-        category.addClass(_class);
+        Category category1 = new Category("Lecture");
+        Category category2 = new Category("Practical");
+        category1.addClass(_class1);
+        category2.addClass(_class1);
+        category1.addClass(_class2);
+//        category2.addClass(_class2);
 
         Subject subject1 = new Subject("Cloud Computing", "6S403");
         Subject subject2 = new Subject("Computer Network", "6N401");
-        subject1.addCategory(category);
-        subject2.addCategory(category);
+        subject1.addCategory(category1);
+        subject2.addCategory(category1);
+        subject1.addCategory(category2);
+        subject2.addCategory(category2);
 
         Teacher teacher1 = new Teacher("P V Sontakke", FirebaseDBConnection.uid);
         Log.d(MainActivity.TAG, "trialCode: UID: " + FirebaseDBConnection.uid);

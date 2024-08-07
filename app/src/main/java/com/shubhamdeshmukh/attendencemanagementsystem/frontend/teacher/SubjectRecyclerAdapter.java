@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecyclerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Subject> subjects_array_list;
+    static ArrayList<Subject> subjects_array_list;
 
     public SubjectRecyclerAdapter(Context context,ArrayList<Subject> subjects_array_list){
         this.subjects_array_list = subjects_array_list;
@@ -52,15 +52,17 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
             @Override
             public void onClick(View view) {
 
+                intent.putExtra("Subject", holder.getAdapterPosition());
                 context.startActivity(intent);
-
-
-
             }
         });
 
 
 
+    }
+
+    public static ArrayList<Subject> getSubjects_array_list() {
+        return subjects_array_list;
     }
 
     @Override

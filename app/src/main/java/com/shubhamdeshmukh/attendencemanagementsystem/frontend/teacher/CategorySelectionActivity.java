@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -12,10 +13,13 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.TextView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 public class CategorySelectionActivity extends AppCompatActivity {
 
@@ -33,22 +37,18 @@ public class CategorySelectionActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+        int subjectIndex = intent.getIntExtra("Subject", 0);
+
+        RecyclerView categoryrecycler = findViewById(R.id.categoryrecycler);
+        categoryrecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        CategorySelectionRecylerAdapter categorySelectionRecylerAdapter = new CategorySelectionRecylerAdapter(this,SubjectRecyclerAdapter.getSubjects_array_list().get(subjectIndex).getCategoryList());
+
+        categoryrecycler.setAdapter(categorySelectionRecylerAdapter);
+        Log.d(MainActivity.TAG, "onCreate: SUBJECT: " + SubjectRecyclerAdapter.getSubjects_array_list().get(subjectIndex).getCategoryList().toString());
 
 
-
-
-        lecture = findViewById(R.id.Practical);
-        practical = findViewById(R.id.Lecture);
-
-
-        lecture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                    showDialog();
-
-            }
-        });
 
     }
 

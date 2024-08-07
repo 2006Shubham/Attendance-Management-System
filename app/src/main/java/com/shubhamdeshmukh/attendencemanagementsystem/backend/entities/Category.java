@@ -1,5 +1,7 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,5 +27,11 @@ public class Category {
 
     public ArrayList<Class> getClassList() {
         return classList;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Name: " + getName();
     }
 }
