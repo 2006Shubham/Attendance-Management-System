@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Accounts;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Account;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
@@ -64,14 +65,20 @@ public class FirebaseDBConnection {
 
         Class _class1 = new Class("CO 3rd Year");
         Class _class2 = new Class("AI 3rd Year");
+        Class _class3 = new Class("CO 3rd Year");
         _class1.addAttendance(attendance);
+        _class1.addBatch(new Batch("Batch A", "226001", "226021"));
+        _class1.addBatch(new Batch("Batch B", "226022", "226037"));
         _class2.addAttendance(attendance);
+        _class2.addBatch(new Batch("Batch A", "224001", "224019"));
+        _class2.addBatch(new Batch("Batch B", "224020", "224035"));
+        _class3.addAttendance(attendance);
 
         Category category1 = new Category("Lecture");
         Category category2 = new Category("Practical");
-        category1.addClass(_class1);
         category2.addClass(_class1);
-        category1.addClass(_class2);
+        category2.addClass(_class2);
+        category1.addClass(_class3);
 //        category2.addClass(_class2);
 
         Subject subject1 = new Subject("Cloud Computing", "6S403");

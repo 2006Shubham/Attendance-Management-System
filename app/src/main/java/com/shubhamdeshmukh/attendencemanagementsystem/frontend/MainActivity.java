@@ -59,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.database = FirebaseDatabase.getInstance(dbAccessLink);
         MainActivity.mAuth = FirebaseAuth.getInstance();
         authenticate();
-        manageInput();
         FirebaseDBConnection.fetchAccounts();
 //        trialCode();
-        FirebaseDBConnection.setUserId(MainActivity.mAuth.getCurrentUser().getUid());
         dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+        manageInput();
 //        dbConnection.trialCode();
     }
 
@@ -109,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             Log.d(TAG, "In Main");
             idText.setText(user.getEmail());
+            FirebaseDBConnection.setUserId(MainActivity.mAuth.getCurrentUser().getUid());
         }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {

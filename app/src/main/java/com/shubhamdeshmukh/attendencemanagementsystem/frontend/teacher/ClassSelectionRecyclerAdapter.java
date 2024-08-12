@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
 
@@ -48,12 +51,47 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
         Intent intent = new Intent(context,AttendanceViewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+        holder.batchlist_recycler.setLayoutManager(new LinearLayoutManager(context));
+        holder.batchlist_recycler.setAdapter(new BatchSelectionRecyclerAdapter(classArrayList.get(position).getBatchList(),context));
+
+        Log.d(MainActivity.TAG, "onBindViewHolder: Batch: " + classArrayList.get(position).getBatchList());
+
+
         holder.classLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                context.startActivity(intent);
+//                context.startActivity(intent);
 
+            }
+        });
+
+
+        holder.classLinearLayout.setOnClickListener(new View.OnClickListener() {
+
+            Intent intent = new Intent(context, AttendanceViewActivity.class);
+
+            @Override
+            public void onClick(View view) {
+                if (classArrayList.get(position).getBatchList().size() == 0)
+                {
+                    context.startActivity(intent);
+                }
+                else
+                {
+                    if (holder.batch_card.getVisibility() == View.GONE)
+                    {
+                        Log.d(MainActivity.TAG, "onClick: TRUE");
+                        holder.batch_card.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        Log.d(MainActivity.TAG, "onClick: FALSE");
+                        holder.batch_card.setVisibility(View.GONE);
+                    }
+                }
             }
         });
 
@@ -69,13 +107,18 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView className;
+        RecyclerView batchlist_recycler;
+        LinearLayout classLinearLayout,batch_card;
 
-        LinearLayout classLinearLayout;
+        LinearLayout class_card;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             classLinearLayout = itemView.findViewById(R.id.class_card);
             className = itemView.findViewById(R.id.classname);
+            batchlist_recycler = itemView.findViewById(R.id.batch_list_recycler);
+            batch_card = itemView.findViewById(R.id.batch_list);
+
         }
     }
 }
