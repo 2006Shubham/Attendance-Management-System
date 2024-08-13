@@ -1,21 +1,42 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Attendance {
-    private ArrayList<DateEntry> dateEntryList;
+    private Date date;
+    private ArrayList<StudentStatus> studentStatusList;
 
-    public Attendance()
+    public Attendance() {};
+
+    public Attendance(Date date)
     {
-        dateEntryList = new ArrayList<>();
+        this.date = date;
+        this.studentStatusList = new ArrayList<>();
     }
 
-    public void addDateEntry(DateEntry dateEntry)
+    public void addStudentStatus(StudentStatus studentStatus)
     {
-        this.dateEntryList.add(dateEntry);
+        this.studentStatusList.add(studentStatus);
     }
 
-    public ArrayList<DateEntry> getDateEntryList() {
-        return dateEntryList;
+    public Date getDate() {
+        return date;
+    }
+
+    public ArrayList<StudentStatus> getStudentStatusList() {
+        return studentStatusList;
+    }
+
+    public int getStudentIndexWithId(String id)
+    {
+        for(int i = 0; i < this.studentStatusList.size(); i++)
+        {
+            if (this.studentStatusList.get(i).getStudent().getId().equals(id))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

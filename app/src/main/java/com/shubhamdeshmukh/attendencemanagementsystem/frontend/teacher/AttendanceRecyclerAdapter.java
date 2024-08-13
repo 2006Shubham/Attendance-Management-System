@@ -11,48 +11,50 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.StudentStatus;
 
 import java.util.ArrayList;
 
 public class AttendanceRecyclerAdapter extends RecyclerView.Adapter<AttendanceRecyclerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<AttendanceRecyclerDataModel>arrayList;
+    ArrayList<StudentStatus> studentStatusList;
 
-    AttendanceRecyclerAdapter (ArrayList<AttendanceRecyclerDataModel>arrayList,Context context){
+    AttendanceRecyclerAdapter(ArrayList<StudentStatus> studentStatusList, Context context) {
 
-        this.arrayList =arrayList;
+        this.studentStatusList = studentStatusList;
         this.context = context;
 
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      View v =   LayoutInflater.from(context).inflate(R.layout.student_recycler_layout,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.student_recycler_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
-        return  viewHolder;
+        return viewHolder;
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.status.setChecked(arrayList.get(position).status);
+        holder.status.setChecked(studentStatusList.get(position).isStatus());
         holder.status.setClickable(false);
-        holder.name.setText(arrayList.get(position).name);
+        holder.name.setText(studentStatusList.get(position).getStudent().getName());
 
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return studentStatusList.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name ;
+        TextView name;
         CheckBox status;
 
         public ViewHolder(@NonNull View itemView) {

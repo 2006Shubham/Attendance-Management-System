@@ -46,13 +46,13 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
         holder.coursecode.setText(subjects_array_list.get(position).getCode());
 
         Intent intent = new Intent(context, CategorySelectionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 intent.putExtra("Subject", holder.getAdapterPosition());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

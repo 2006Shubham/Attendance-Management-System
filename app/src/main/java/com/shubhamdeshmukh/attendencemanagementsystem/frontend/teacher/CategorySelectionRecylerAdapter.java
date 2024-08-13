@@ -24,13 +24,17 @@ public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<Catego
     Context context;
     ArrayList<Category>categoryarrayList;
 
-
+    static int currentExpandedPosition = -1;
 
     CategorySelectionRecylerAdapter(Context context , ArrayList<Category> categoryarrayList){
 
         this.categoryarrayList = categoryarrayList;
         this.context = context;
 
+    }
+
+    public static void callAttendanceViewActivityWithClass(int classIndex, int batchIndex) {
+        CategorySelectionActivity.callAttendanceViewActivityWithCategory(currentExpandedPosition, classIndex, batchIndex); // Sending Current Category Index, Class Index & Batch Index
     }
 
     @NonNull
@@ -48,14 +52,18 @@ public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<Catego
 
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(new ClassSelectionRecyclerAdapter(context,categoryarrayList.get(position).getClassList()));
+
+        if (CategorySelectionRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
+            holder.innerclassLayout.setVisibility(View.VISIBLE);
+        else
+            holder.innerclassLayout.setVisibility(View.GONE);
+
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if (holder.innerclassLayout.getVisibility() == View.GONE)
-                    holder.innerclassLayout.setVisibility(View.VISIBLE);
-                else
-                    holder.innerclassLayout.setVisibility(View.GONE);
+                CategorySelectionRecylerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                notifyDataSetChanged();
             }
         });
 
