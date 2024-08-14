@@ -25,12 +25,18 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
     Context context;
 
+    static int currentExpandedPosition = -1;
+
     ClassSelectionRecyclerAdapter(Context context,ArrayList<Class>classArrayList){
 
         this.classArrayList = classArrayList;
         this.context = context;
 
 
+    }
+
+    public static void callAttendanceViewActivityWithBatch(int batchIndex) {
+        CategorySelectionRecylerAdapter.callAttendanceViewActivityWithClass(currentExpandedPosition, batchIndex); // Sending Current Class Index & Batch Index
     }
 
     @NonNull
@@ -68,29 +74,30 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
             }
         });
 
+        if (ClassSelectionRecyclerAdapter.currentExpandedPosition == position)
+        {
+            holder.batch_card.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            holder.batch_card.setVisibility(View.GONE);
+        }
 
         holder.classLinearLayout.setOnClickListener(new View.OnClickListener() {
 
-            Intent intent = new Intent(context, AttendanceViewActivity.class);
+//            final Intent intent = new Intent(context, AttendanceViewActivity.class);
 
             @Override
             public void onClick(View view) {
-                if (classArrayList.get(position).getBatchList().size() == 0)
+                if (classArrayList.get(holder.getAdapterPosition()).getBatchList().isEmpty())
                 {
-                    context.startActivity(intent);
+//                    context.startActivity(intent);
+                    ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
                 }
                 else
                 {
-                    if (holder.batch_card.getVisibility() == View.GONE)
-                    {
-                        Log.d(MainActivity.TAG, "onClick: TRUE");
-                        holder.batch_card.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Log.d(MainActivity.TAG, "onClick: FALSE");
-                        holder.batch_card.setVisibility(View.GONE);
-                    }
+                    ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                    notifyDataSetChanged();
                 }
             }
         });

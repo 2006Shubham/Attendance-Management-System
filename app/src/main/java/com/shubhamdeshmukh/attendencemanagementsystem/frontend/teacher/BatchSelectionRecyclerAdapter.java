@@ -47,10 +47,9 @@ public class BatchSelectionRecyclerAdapter extends RecyclerView.Adapter<BatchSel
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context,AttendanceViewActivity.class);
-                context.startActivity(intent);
-
-
+//                Intent intent = new Intent(context,AttendanceViewActivity.class);
+//                context.startActivity(intent);
+                ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(holder.getAdapterPosition()); // Sending Current Batch Index
             }
         });
 

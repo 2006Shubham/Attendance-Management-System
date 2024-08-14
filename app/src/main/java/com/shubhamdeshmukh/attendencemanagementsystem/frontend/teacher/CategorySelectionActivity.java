@@ -1,5 +1,6 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,19 @@ public class CategorySelectionActivity extends AppCompatActivity {
 
     CardView lecture ,practical;
 
+    private static int currentSubjectIndex;
+
+    private static Context currentContext;
+
+    public static void callAttendanceViewActivityWithCategory(int categoryIndex, int classIndex, int batchIndex) {
+        Intent intent = new Intent(currentContext, AttendanceViewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("subjectIndex", currentSubjectIndex);
+        intent.putExtra("categoryIndex", categoryIndex);
+        intent.putExtra("classIndex", classIndex);
+        intent.putExtra("batchIndex", batchIndex);
+        currentContext.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +51,27 @@ public class CategorySelectionActivity extends AppCompatActivity {
             return insets;
         });
 
+        CategorySelectionActivity.currentContext = getApplicationContext();
         Intent intent = getIntent();
-        int subjectIndex = intent.getIntExtra("Subject", 0);
+        currentSubjectIndex = intent.getIntExtra("Subject", 0);
 
         RecyclerView categoryrecycler = findViewById(R.id.categoryrecycler);
         categoryrecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        CategorySelectionRecylerAdapter categorySelectionRecylerAdapter = new CategorySelectionRecylerAdapter(this,SubjectRecyclerAdapter.getSubjects_array_list().get(subjectIndex).getCategoryList());
+        CategorySelectionRecylerAdapter categorySelectionRecylerAdapter = new CategorySelectionRecylerAdapter(this,SubjectRecyclerAdapter.getSubjects_array_list().get(this.currentSubjectIndex).getCategoryList());
 
         categoryrecycler.setAdapter(categorySelectionRecylerAdapter);
-        Log.d(MainActivity.TAG, "onCreate: SUBJECT: " + SubjectRecyclerAdapter.getSubjects_array_list().get(subjectIndex).getCategoryList().toString());
+        Log.d(MainActivity.TAG, "onCreate: SUBJECT: " + SubjectRecyclerAdapter.getSubjects_array_list().get(currentSubjectIndex).getCategoryList().toString());
 
 
 
     }
 
+    public int getCurrentSubjectIndex() {
+        return currentSubjectIndex;
+    }
 
-   public void showDialog() {
+    public void showDialog() {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout._class, null);
 
