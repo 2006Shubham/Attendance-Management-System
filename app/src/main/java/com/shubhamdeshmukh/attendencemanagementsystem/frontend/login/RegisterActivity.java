@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.TeacherAfterRegistrationActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -85,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
 
+                Intent intent = new Intent(getApplicationContext(), TeacherAfterRegistrationActivity.class);
                 // Register New User
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -95,6 +97,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(MainActivity.TAG, "createUserWithEmail:success");
                                     Toast.makeText(RegisterActivity.this, "Authentication success.", Toast.LENGTH_SHORT).show();
+                                  //  FirebaseUser user = mAuth.getCurrentUser();
+                                    startActivity(intent);
+
 
                                 } else {
                                     // If sign in fails, display a message to the user.

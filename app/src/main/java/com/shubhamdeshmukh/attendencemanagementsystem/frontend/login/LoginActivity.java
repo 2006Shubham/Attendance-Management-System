@@ -24,7 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
