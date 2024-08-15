@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Batch Info"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/editTextBatchName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Batch Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextStartingStudentNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Starting Student No."
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextEndingStudentNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ending Student No."
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:backgroundTint="#6200EE"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

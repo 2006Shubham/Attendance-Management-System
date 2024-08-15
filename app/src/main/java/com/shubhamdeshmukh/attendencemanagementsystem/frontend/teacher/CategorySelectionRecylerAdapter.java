@@ -62,7 +62,14 @@ public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<Catego
 
             @Override
             public void onClick(View view) {
-                CategorySelectionRecylerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                if (CategorySelectionRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
+                {
+                    CategorySelectionRecylerAdapter.currentExpandedPosition = -1;
+                }
+                else
+                {
+                    CategorySelectionRecylerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                }
                 notifyDataSetChanged();
             }
         });

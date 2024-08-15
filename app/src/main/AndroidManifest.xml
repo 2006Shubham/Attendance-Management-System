@@ -15,6 +15,21 @@
         android:theme="@style/Theme.AttendenceManagementSystem"
         tools:targetApi="31">
         <activity
+            android:name=".frontend.teacherregistration.RegisterSubjectInfoAndCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.teacherregistration.RegisterClassInfoAndBatchesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.teacherregistration.RegisterAddClassesAndSubjectsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.teacherregistration.TeacherAfterRegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".frontend2.MonitorClassSelection"
+            android:exported="false" />
+        <activity
             android:name=".frontend.teacher.AttendanceViewActivity"
             android:exported="false" />
         <activity
@@ -23,11 +38,13 @@
         <activity
             android:name=".frontend.teacher.TeacherSubjectPortalActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".frontend.login.RegisterActivity"
@@ -35,22 +52,22 @@
         <activity
             android:name=".frontend.login.LoginActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".frontend.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

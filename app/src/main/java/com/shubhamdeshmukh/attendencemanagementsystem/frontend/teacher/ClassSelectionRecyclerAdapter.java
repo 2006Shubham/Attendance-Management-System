@@ -91,12 +91,19 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
             public void onClick(View view) {
                 if (classArrayList.get(holder.getAdapterPosition()).getBatchList().isEmpty())
                 {
+                    currentExpandedPosition = holder.getAdapterPosition();
 //                    context.startActivity(intent);
                     ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
                 }
                 else
                 {
-                    ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                    if (ClassSelectionRecyclerAdapter.currentExpandedPosition == holder.getAdapterPosition())
+                    {
+                        ClassSelectionRecyclerAdapter.currentExpandedPosition = -1;
+                    }
+                    else {
+                        ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                    }
                     notifyDataSetChanged();
                 }
             }
