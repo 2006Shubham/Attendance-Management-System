@@ -26,6 +26,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.login.LoginActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.TeacherSubjectPortalActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.TeacherAfterRegistrationActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.database = FirebaseDatabase.getInstance(dbAccessLink);
         MainActivity.mAuth = FirebaseAuth.getInstance();
         authenticate();
-        FirebaseDBConnection.fetchAccounts();
+        FirebaseDBConnection.fetchData();
 //        trialCode();
         dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
         manageInput();
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         EditText inputField = findViewById(R.id.data);
         Button sendButton = findViewById(R.id.sendData);
 
-        Intent intent = new Intent(this, TeacherSubjectPortalActivity.class);
+        Intent intent = new Intent(this, TeacherAfterRegistrationActivity.class);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
