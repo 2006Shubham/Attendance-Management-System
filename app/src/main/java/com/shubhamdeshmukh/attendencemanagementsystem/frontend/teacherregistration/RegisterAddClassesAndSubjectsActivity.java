@@ -14,14 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
 
 import java.util.ArrayList;
 
 public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
 
 
-    public static ArrayList<Class> classArrayList = new ArrayList<>();
+    public static ArrayList<Class> classList;
+    public static ArrayList<Subject> subjectList;
+    private boolean toggle = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,28 +44,35 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         FloatingActionButton fab2 = findViewById(R.id.addSubject);
         FloatingActionButton fab3 = findViewById(R.id.addclass);
 
-        RecyclerView recyclerView = findViewById(R.id.register_class_recycler);
+        RecyclerView classRecyclerView = findViewById(R.id.register_class_recycler);
+        RecyclerView subjectRecyclerView = findViewById(R.id.register_subject_recycler);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        classArrayList.add(new Class("CO 3rd Year"));
-        classArrayList.add(new Class("An 3rd Year"));
-        classArrayList.add(new Class("MECH 3rd Year"));
-        classArrayList.add(new Class("E&TC 3rd Year"));
+        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+        classList = dbConnection.getData().classes;
+        subjectList = dbConnection.getData().subjects;
 
-        ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classArrayList);
-        recyclerView.setAdapter(classRegisterRecyclerAdapter);
-
-
-
-
+        ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
+        classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
+        SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(this, subjectList);
+        subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
 
 
        fab1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               fab2.setVisibility(View.VISIBLE);
-               fab3.setVisibility(View.VISIBLE);
+               if (toggle)
+               {
+                   fab2.setVisibility(View.GONE);
+                   fab3.setVisibility(View.GONE);
+               }
+               else {
+                   fab2.setVisibility(View.VISIBLE);
+                   fab3.setVisibility(View.VISIBLE);
+               }
+               toggle = !toggle;
            }
        });
 

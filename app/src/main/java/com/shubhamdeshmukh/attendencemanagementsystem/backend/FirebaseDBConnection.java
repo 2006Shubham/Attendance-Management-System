@@ -11,15 +11,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Accounts;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Account;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Attendance;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Monitor;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Student;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.StudentStatus;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
@@ -32,7 +31,7 @@ public class FirebaseDBConnection {
 
     private final FirebaseDatabase database;
     private final FirebaseAuth mAuth;
-    private static Accounts accountList;
+    private static Data data;
 
     private static String uid;
 
@@ -117,55 +116,26 @@ public class FirebaseDBConnection {
         Monitor monitor1 = new Monitor("Shubham Deshmukh", "226008", "1234", "CO 3rd Year");
         Monitor monitor2 = new Monitor("Yash Bhavsar", "224002", "1234", "AN 3rd Year");
 
-        DatabaseReference node1 = database.getReference("Accounts").child("accounts").child("0");
-        node1.setValue(teacher1);
-        DatabaseReference node2 = database.getReference("Accounts").child("accounts").child("1");
-        node2.setValue(teacher2);
-        DatabaseReference node3 = database.getReference("Accounts").child("accounts").child("2");
-        node3.setValue(monitor1);
-        DatabaseReference node4 = database.getReference("Accounts").child("accounts").child("3");
-        node4.setValue(monitor2);
+
+        Data data = new Data();
+        data.addAccount(teacher1);
+        data.addAccount(teacher2);
+        data.addAccount(monitor1);
+        data.addAccount(monitor2);
+
+        data.addClass(_class1);
+        data.addClass(_class2);
+        data.addClass(_class3);
+
+        data.addSubject(subject1);
+        data.addSubject(subject2);
+
+        DatabaseReference node1 = database.getReference("Data");
+        node1.setValue(data);
+
 
         Log.d(MainActivity.TAG, "trialCode: Success" + teacher1.printInfo());
         Log.d(MainActivity.TAG, "trialCode: Success" + teacher2.printInfo());
-
-        node3.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                 if (snapshot.exists()) {
-                     Account teacher = snapshot.getValue(Account.class);
-
-                     if (teacher != null)
-                     {
-//                    Log.d(MainActivity.TAG, "trialCode: Success" + teacher.printInfo());
-                         if (Objects.equals(teacher.getType(), "Teacher"))
-                         {
-                             Teacher t = snapshot.getValue(Teacher.class);
-                             Log.d(MainActivity.TAG, "onDataChange: Teacher");
-                             DatabaseReference node = database.getReference("New Example");
-                             node.setValue(t);
-                         }
-                         else if (Objects.equals(teacher.getType(), "Monitor"))
-                         {
-                             Student t = snapshot.getValue(Student.class);
-                             Log.d(MainActivity.TAG, "onDataChange: Monitor");
-                             DatabaseReference node = database.getReference("New Example");
-                         }
-                         Log.d(MainActivity.TAG, "Something Else:" + teacher.getType());
-                     }
-                     else
-                         Log.d(MainActivity.TAG, "trialCode: NULL Teacher");
-
-                } else {
-                    Log.d(MainActivity.TAG, "onDataChange: Value doesn't exist");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private Attendance getCOAttendance(Date date, boolean key)
@@ -245,20 +215,20 @@ public class FirebaseDBConnection {
         return attendance;
     }
 
-    public static void fetchAccounts()
+    public static void fetchData()
     {
-        DatabaseReference accountsRef = MainActivity.database.getReference("Accounts");
+        DatabaseReference dataRef = MainActivity.database.getReference("Data");
 
-        accountsRef.addValueEventListener(new ValueEventListener() {
+        dataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists())
                 {
-                    FirebaseDBConnection.accountList = snapshot.getValue(Accounts.class);
-                    Log.d(MainActivity.TAG, "onDataChange: AccountList");
+                    FirebaseDBConnection.data = snapshot.getValue(Data.class);
+                    Log.d(MainActivity.TAG, "onDataChange: Data" + data);
                 }
                 else {
-                    Log.d(MainActivity.TAG, "onDataChange: NULL Accounts");
+                    Log.d(MainActivity.TAG, "onDataChange: NULL Data");
                 }
             }
 
@@ -269,18 +239,24 @@ public class FirebaseDBConnection {
         });
     }
 
+    public static void updateData()
+    {
+        DatabaseReference dataRef = MainActivity.database.getReference("Data");
+        dataRef.setValue(data);
+    }
+
     public void getAccount(final ValueCallback<Object> callback)
     {
         Log.d(MainActivity.TAG, "getAccount: Current Account: " + mAuth.getCurrentUser().getUid());
         Account accountRef = null;
-        if (FirebaseDBConnection.accountList != null)
+        if (FirebaseDBConnection.data != null)
         {
-            for (int i = 0; i < FirebaseDBConnection.accountList.accounts.size(); i++) {
-                if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
+            for (int i = 0; i < FirebaseDBConnection.data.accounts.size(); i++) {
+                if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
                 {
-                    if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getType(), "Teacher"))
+                    if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getType(), "Teacher"))
                     {
-                        DatabaseReference teacherRef = database.getReference("Accounts").child("accounts").child(String.valueOf(i));
+                        DatabaseReference teacherRef = database.getReference("Data").child("accounts").child(String.valueOf(i));
                         teacherRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -297,9 +273,9 @@ public class FirebaseDBConnection {
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
                     }
-                    else if (Objects.equals(FirebaseDBConnection.accountList.accounts.get(i).getType(), "Monitor"))
+                    else if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getType(), "Monitor"))
                     {
-                        DatabaseReference monitorRef = database.getReference("Accounts").child("accounts").child(String.valueOf(i));
+                        DatabaseReference monitorRef = database.getReference("Data").child("accounts").child(String.valueOf(i));
                         monitorRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -317,5 +293,10 @@ public class FirebaseDBConnection {
             }
         }
         callback.onReceiveValue(null);
+    }
+
+    public Data getData()
+    {
+        return data;
     }
 }

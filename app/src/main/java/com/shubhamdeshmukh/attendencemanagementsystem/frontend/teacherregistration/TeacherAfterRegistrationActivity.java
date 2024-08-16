@@ -2,7 +2,9 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -12,8 +14,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
+
+import java.util.ArrayList;
 
 public class TeacherAfterRegistrationActivity extends AppCompatActivity {
+
+    ArrayList<Subject> subjectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +38,26 @@ public class TeacherAfterRegistrationActivity extends AppCompatActivity {
         });
 
         Button addSubjects = findViewById(R.id.add_subjects);
+
+        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+
+        subjectList = dbConnection.getData().subjects;
+
+//        dbConnection.getAccount(new ValueCallback<Object>() {
+//
+//            @Override
+//            public void onReceiveValue(Object obj) {
+//                if (obj != null)
+//                {
+//                    Teacher teacher = (Teacher) obj;
+//                    Log.d(MainActivity.TAG, "onReceiveValue: Valid Ref");
+//
+//                }
+//                else {
+//                    Log.d(MainActivity.TAG, "onReceiveValue: NULL Ref");
+//                }
+//            }
+//        });
 
         addSubjects.setOnClickListener(new View.OnClickListener() {
 

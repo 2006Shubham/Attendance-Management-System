@@ -6,7 +6,6 @@ import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 // Defines a Class Entity - like 'AIML 3rd Year', 'CO 2nd Year', etc.
 public class Class {

@@ -27,9 +27,6 @@
             android:name=".frontend.teacherregistration.TeacherAfterRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".frontend2.MonitorClassSelection"
-            android:exported="false" />
-        <activity
             android:name=".frontend.teacher.AttendanceViewActivity"
             android:exported="false" />
         <activity
