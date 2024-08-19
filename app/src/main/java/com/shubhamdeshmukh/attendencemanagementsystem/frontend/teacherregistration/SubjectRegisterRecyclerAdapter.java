@@ -1,12 +1,16 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
@@ -41,7 +45,15 @@ public class SubjectRegisterRecyclerAdapter extends RecyclerView.Adapter<Subject
     @Override
     public void onBindViewHolder(@NonNull SubjectRegisterRecyclerAdapter.ViewHolder holder, int position) {
 
-       holder.subname.setText(subjectArrayList.get(position).getName()+"( "+ subjectArrayList.get(position).getCode()+" )");
+       holder.subname.setText(subjectArrayList.get(holder.getAdapterPosition()).getName()+" ("+ subjectArrayList.get(holder.getAdapterPosition()).getCode()+")");
+       holder.subname.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(context, RegisterSubjectInfoAndCategoryActivity.class);
+               intent.putExtra("subjectFetchedDataIndex", holder.getAdapterPosition());
+               context.startActivity(intent);
+           }
+       });
 
     }
 
@@ -52,11 +64,13 @@ public class SubjectRegisterRecyclerAdapter extends RecyclerView.Adapter<Subject
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView subname ;
+        TextView subname;
+        CheckBox checkBox;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
            subname =  itemView.findViewById(R.id.name);
-
+           checkBox = itemView.findViewById(R.id.checkbox);
         }
     }
 

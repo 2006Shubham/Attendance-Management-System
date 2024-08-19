@@ -31,7 +31,8 @@ public class FirebaseDBConnection {
 
     private final FirebaseDatabase database;
     private final FirebaseAuth mAuth;
-    private static Data data;
+    private static Data fetchedData;
+    private static Data registrationData;
 
     private static String uid;
 
@@ -236,8 +237,8 @@ public class FirebaseDBConnection {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists())
                 {
-                    FirebaseDBConnection.data = snapshot.getValue(Data.class);
-                    Log.d(MainActivity.TAG, "onDataChange: Data" + data);
+                    FirebaseDBConnection.fetchedData = snapshot.getValue(Data.class);
+                    Log.d(MainActivity.TAG, "onDataChange: Data" + fetchedData);
                 }
                 else {
                     Log.d(MainActivity.TAG, "onDataChange: NULL Data");
@@ -251,22 +252,23 @@ public class FirebaseDBConnection {
         });
     }
 
-    public static void updateData()
+    public static void updateDatabase()
     {
+        // Send the fetchedData (with possible changes) to eh Database
         DatabaseReference dataRef = MainActivity.database.getReference("Data");
-        dataRef.setValue(data);
+        dataRef.setValue(fetchedData);
     }
 
     public void getAccount(final ValueCallback<Object> callback)
     {
         Log.d(MainActivity.TAG, "getAccount: Current Account: " + mAuth.getCurrentUser().getUid());
         Account accountRef = null;
-        if (FirebaseDBConnection.data != null)
+        if (FirebaseDBConnection.fetchedData != null)
         {
-            for (int i = 0; i < FirebaseDBConnection.data.accounts.size(); i++) {
-                if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
+            for (int i = 0; i < FirebaseDBConnection.fetchedData.accounts.size(); i++) {
+                if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
                 {
-                    if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getType(), "Teacher"))
+                    if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getType(), "Teacher"))
                     {
                         DatabaseReference teacherRef = database.getReference("Data").child("accounts").child(String.valueOf(i));
                         teacherRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -285,7 +287,7 @@ public class FirebaseDBConnection {
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
                     }
-                    else if (Objects.equals(FirebaseDBConnection.data.accounts.get(i).getType(), "Monitor"))
+                    else if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getType(), "Monitor"))
                     {
                         DatabaseReference monitorRef = database.getReference("Data").child("accounts").child(String.valueOf(i));
                         monitorRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -307,8 +309,22 @@ public class FirebaseDBConnection {
         callback.onReceiveValue(null);
     }
 
-    public Data getData()
+    public Data getFetchedData()
     {
-        return data;
+        return fetchedData;
+    }
+
+    public Data getRegistrationData()
+    {
+        if (registrationData == null)
+        {
+            registrationData = fetchedData;
+        }
+        return registrationData;
+    }
+
+    public void setRegistrationData(Data data)
+    {
+        registrationData = data;
     }
 }

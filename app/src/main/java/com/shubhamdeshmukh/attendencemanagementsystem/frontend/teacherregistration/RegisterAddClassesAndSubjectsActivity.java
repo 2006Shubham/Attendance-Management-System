@@ -3,7 +3,6 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnecti
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.SubjectRegisterRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -53,8 +51,8 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
-        classList = dbConnection.getData().classes;
-        subjectList = dbConnection.getData().subjects;
+        classList = dbConnection.getFetchedData().classes;
+        subjectList = dbConnection.getFetchedData().subjects;
 
         ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
         classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
