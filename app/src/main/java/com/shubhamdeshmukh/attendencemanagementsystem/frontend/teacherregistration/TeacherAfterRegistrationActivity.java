@@ -2,9 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.webkit.ValueCallback;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -16,9 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -41,7 +37,7 @@ public class TeacherAfterRegistrationActivity extends AppCompatActivity {
 
         FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
 
-        subjectList = dbConnection.getData().subjects;
+        subjectList = dbConnection.getFetchedData().subjects;
 
 //        dbConnection.getAccount(new ValueCallback<Object>() {
 //

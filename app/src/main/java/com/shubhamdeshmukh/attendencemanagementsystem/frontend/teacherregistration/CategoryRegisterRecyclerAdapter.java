@@ -22,11 +22,14 @@ public class CategoryRegisterRecyclerAdapter extends RecyclerView.Adapter<Catego
     Context context;
     ArrayList<Category> categoryArrayList;
 
-    CategoryRegisterRecyclerAdapter(Context context, ArrayList<Category> categoryArrayList){
+    RegisterSubjectInfoAndCategoryActivity parent;
+
+    CategoryRegisterRecyclerAdapter(Context context, ArrayList<Category> categoryArrayList, RegisterSubjectInfoAndCategoryActivity parent){
 
         this.context = context;
         this.categoryArrayList = categoryArrayList;
         Log.d(MainActivity.TAG, String.valueOf(categoryArrayList.size()));
+        this.parent = parent;
     }
 
     @NonNull
@@ -44,7 +47,12 @@ public class CategoryRegisterRecyclerAdapter extends RecyclerView.Adapter<Catego
 
         holder.category_name.setText(categoryArrayList.get(position).getName());
 
-
+        holder.category_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parent.showCategoryInfoDialog(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override

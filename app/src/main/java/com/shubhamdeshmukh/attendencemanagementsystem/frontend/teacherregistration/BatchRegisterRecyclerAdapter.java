@@ -21,11 +21,14 @@ public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegi
     Context context;
     ArrayList<Batch> batchArrayList;
 
-    BatchRegisterRecyclerAdapter(Context context, ArrayList<Batch> batchArrayList){
+    RegisterClassInfoAndBatchesActivity parent;
+
+    BatchRegisterRecyclerAdapter(Context context, ArrayList<Batch> batchArrayList, RegisterClassInfoAndBatchesActivity parent){
 
         this.context = context;
         this.batchArrayList = batchArrayList;
         Log.d(MainActivity.TAG, String.valueOf(BatchRegisterRecyclerAdapter.this.batchArrayList.size()));
+        this.parent = parent;
     }
 
     @NonNull
@@ -43,7 +46,12 @@ public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegi
 
         holder.batch_name.setText(batchArrayList.get(position).getName());
 
-
+        holder.batch_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parent.showBatchInfoDialog(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override

@@ -20,6 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Data;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
     ArrayList<Batch>batchArrayList;
+    int selectedClassIndex;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,33 +44,41 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
             return insets;
         });
 
-
         FloatingActionButton fab = findViewById(R.id.addbatch);
 
-        RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
-
+        Intent intent = getIntent();
         FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
+        selectedClassIndex = intent.getIntExtra("classFetchedDataIndex", -1);
 
-       batchArrayList =  firebaseDBConnection.getData().batches;
+        if (selectedClassIndex == -1) {
+
+            batchArrayList = firebaseDBConnection.getRegistrationData().batches;
+        }
+        else
+        {
+            Class _class = firebaseDBConnection.getRegistrationData().classes.get(selectedClassIndex);
+            EditText className = findViewById(R.id.class_name);
+            className.setText(_class.getName());
+            batchArrayList = _class.getBatchList();
+        }
 
 
+        RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(),batchArrayList));
-
+        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(),batchArrayList, this));
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                showBatchInfoDialog();
+                showBatchInfoDialog(-1);
             }
         });
     }
 
 
-    private void showBatchInfoDialog() {
+    public void showBatchInfoDialog(int selectedBatch) {
         // Create an AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -89,6 +102,13 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        if (selectedBatch != -1)
+        {
+            editTextBatchName.setText(batchArrayList.get(selectedBatch).getName());
+            editTextStartingStudentNo.setText(batchArrayList.get(selectedBatch).getStartId());
+            editTextEndingStudentNo.setText(batchArrayList.get(selectedBatch).getEndId());
+        }
+
         // Set an OnClickListener for the Submit button
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,10 +117,38 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                 String batchName = editTextBatchName.getText().toString();
                 String startingStudentNo = editTextStartingStudentNo.getText().toString();
                 String endingStudentNo = editTextEndingStudentNo.getText().toString();
-                EditText classname = findViewById(R.id.class_name);
 
+                FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
 
+                // Update the batch & class info in registration Data in FirebaseDBConnection...
+                Data registrationData = firebaseDBConnection.getRegistrationData();
 
+                if (selectedClassIndex != -1)
+                {
+                    if (selectedBatch != -1)
+                    {
+                        // Both class & batch are selected
+                        registrationData.classes.get(selectedClassIndex).getBatchList().get(selectedBatch).name = batchName;
+                        registrationData.classes.get(selectedClassIndex).getBatchList().get(selectedBatch).startId = startingStudentNo;
+                        registrationData.classes.get(selectedClassIndex).getBatchList().get(selectedBatch).endId = endingStudentNo;
+                    }
+                    else
+                    {
+                        // Only Class is selected
+                        Batch newBatch = new Batch(batchName, startingStudentNo, endingStudentNo);
+                        registrationData.classes.get(selectedClassIndex).addBatch(newBatch);
+                    }
+                }
+                else
+                {
+                    // None is selected
+                    Class newClass = new Class();
+                    newClass.addBatch(new Batch(batchName, startingStudentNo, endingStudentNo));
+                    registrationData.classes.add(newClass);
+                    selectedClassIndex = registrationData.classes.size() - 1;
+                }
+
+                firebaseDBConnection.setRegistrationData(registrationData);
 
                 // Perform action with the input data
                 // For example, you can validate inputs or submit them to a server

@@ -23,7 +23,6 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
 
 
-        ArrayList<Category> categoryArrayList;
+    ArrayList<Category> categoryArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +45,32 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = findViewById(R.id.addcategory_and_select_class);
-
+        Intent intent = getIntent();
         FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
-        categoryArrayList =  firebaseDBConnection.getData().categories;
+        int subjectIndex = intent.getIntExtra("subjectFetchedDataIndex", -1);
 
+        if (subjectIndex == -1) {
+
+            categoryArrayList = firebaseDBConnection.getFetchedData().categories;
+        }
+        else
+        {
+            Subject subject = firebaseDBConnection.getFetchedData().subjects.get(subjectIndex);
+            EditText subjectName = findViewById(R.id.subject_name);
+            EditText subjectCode = findViewById(R.id.subject_code);
+            subjectName.setText(subject.getName());
+            subjectCode.setText(subject.getCode());
+            categoryArrayList = subject.getCategoryList();
+        }
         RecyclerView recyclerView = findViewById(R.id.category_recyle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this,categoryArrayList));
+        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this, categoryArrayList, this));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    showBatchInfoDialog();
+                    showCategoryInfoDialog(-1);
 
             }
         });
@@ -67,7 +79,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
 
 
-    private void showBatchInfoDialog() {
+    public void showCategoryInfoDialog(int selectedCategory) {
         // Create an AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflate the custom layout
@@ -81,13 +93,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
         FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
         FirebaseDBConnection.fetchData();
-        ArrayList<Class> classList = dbConnection.getData().classes;
-
-        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classList);
-        recyclerView.setAdapter(classSelectionRecyclerAdapter);
-
-
-
+        ArrayList<Class> classList = dbConnection.getFetchedData().classes;
 
 
         // Set the custom layout as the dialog's view
@@ -102,6 +108,15 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        if (selectedCategory != -1)
+        {
+            category_name.setText(categoryArrayList.get(selectedCategory).getName());
+            classList = categoryArrayList.get(selectedCategory).getClassList();
+        }
+
+        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classList);
+        recyclerView.setAdapter(classSelectionRecyclerAdapter);
+
         // Set an OnClickListener for the Submit button
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,10 +125,10 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
                 EditText category = findViewById(R.id.category_name);
 
-                Intent intent = new Intent(getApplicationContext(), RegisterAddClassesAndSubjectsActivity.class);
-
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(getApplicationContext(), RegisterAddClassesAndSubjectsActivity.class);
+//
+//                startActivity(intent);
+//                finish();
 
                 // Perform action with the input data
                 // For example, you can validate inputs or submit them to a server
