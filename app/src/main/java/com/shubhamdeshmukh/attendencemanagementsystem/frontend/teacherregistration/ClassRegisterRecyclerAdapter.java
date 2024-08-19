@@ -26,10 +26,12 @@ public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegi
 
     }
 
+
+
     @NonNull
     @Override
     public ClassRegisterRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_class_register_recycler, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_class_and_subject_category_register_recycler, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -56,7 +58,7 @@ public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id._class);
+            textView = itemView.findViewById(R.id.name);
 
         }
     }

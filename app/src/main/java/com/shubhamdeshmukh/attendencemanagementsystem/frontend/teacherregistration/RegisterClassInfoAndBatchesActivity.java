@@ -13,11 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+
+import java.util.ArrayList;
 
 public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
+
+    ArrayList<Batch>batchArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,17 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = findViewById(R.id.addbatch);
+
+        RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
+
+        FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
+
+       batchArrayList =  firebaseDBConnection.getData().batches;
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(),batchArrayList));
 
 
 
@@ -79,10 +99,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                 String endingStudentNo = editTextEndingStudentNo.getText().toString();
                 EditText classname = findViewById(R.id.class_name);
 
-                Intent intent = new Intent(RegisterClassInfoAndBatchesActivity.this, RegisterAddClassesAndSubjectsActivity.class);
 
-                startActivity(intent);
-                finish();
 
 
                 // Perform action with the input data

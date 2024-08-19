@@ -76,15 +76,19 @@ public class FirebaseDBConnection {
         _class1.addAttendance(getCOAttendance(cal3.getTime(), true));
         _class1.addAttendance(getCOAttendance(cal4.getTime(), false));
         _class1.addAttendance(getCOAttendance(cal5.getTime(), true));
-        _class1.addBatch(new Batch("Batch A", "226001", "226021"));
-        _class1.addBatch(new Batch("Batch B", "226022", "226037"));
+        Batch batch1 = new Batch("Batch A", "226001", "226021");
+        Batch batch2 = new Batch("Batch B", "226022", "226037");
+        _class1.addBatch(batch1);
+        _class1.addBatch(batch2);
         _class3.addAttendance(getCOAttendance(cal1.getTime(), true));
         _class3.addAttendance(getCOAttendance(cal2.getTime(), false));
         _class3.addAttendance(getCOAttendance(cal3.getTime(), true));
         _class3.addAttendance(getCOAttendance(cal4.getTime(), false));
         _class3.addAttendance(getCOAttendance(cal5.getTime(), true));
-        _class2.addBatch(new Batch("Batch A", "224001", "224019"));
-        _class2.addBatch(new Batch("Batch B", "224020", "224035"));
+        Batch batch3 = new Batch("Batch A", "224001", "224019");
+        Batch batch4 = new Batch("Batch B", "224020", "224035");
+        _class2.addBatch(batch3);
+        _class2.addBatch(batch4);
         _class2.addAttendance(getANAttendance(cal1.getTime(), true));
         _class2.addAttendance(getANAttendance(cal2.getTime(), false));
         _class2.addAttendance(getANAttendance(cal3.getTime(), true));
@@ -130,10 +134,18 @@ public class FirebaseDBConnection {
         data.addSubject(subject1);
         data.addSubject(subject2);
 
+        data.addBatch(batch1);
+        data.addBatch(batch2);
+        data.addBatch(batch3);
+        data.addBatch(batch4);
+
+        data.addCategory(category1);
+        data.addCategory(category2);
+
         DatabaseReference node1 = database.getReference("Data");
         node1.setValue(data);
 
-
+        data = null;
         Log.d(MainActivity.TAG, "trialCode: Success" + teacher1.printInfo());
         Log.d(MainActivity.TAG, "trialCode: Success" + teacher2.printInfo());
     }

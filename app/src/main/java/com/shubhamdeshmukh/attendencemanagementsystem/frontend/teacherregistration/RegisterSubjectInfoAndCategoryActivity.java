@@ -13,11 +13,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
+
+import java.util.ArrayList;
 
 public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
+
+
+
+        ArrayList<Category> categoryArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +44,15 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             return insets;
         });
 
+
         FloatingActionButton fab = findViewById(R.id.addcategory_and_select_class);
+
+        FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
+        categoryArrayList =  firebaseDBConnection.getData().categories;
+
+        RecyclerView recyclerView = findViewById(R.id.category_recyle_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this,categoryArrayList));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +70,25 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
     private void showBatchInfoDialog() {
         // Create an AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         // Inflate the custom layout
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.layout_dialog_add_category, null);
+
+
+
+        RecyclerView recyclerView = dialogView.findViewById(R.id.class_and_batch);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
+        FirebaseDBConnection.fetchData();
+        ArrayList<Class> classList = dbConnection.getData().classes;
+
+        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classList);
+        recyclerView.setAdapter(classSelectionRecyclerAdapter);
+
+
+
+
 
         // Set the custom layout as the dialog's view
         builder.setView(dialogView);

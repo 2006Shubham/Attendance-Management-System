@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.AttendanceViewActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionRecylerAdapter;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,8 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
     @NonNull
     @Override
-    public ClassSelectionRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(context).inflate(R.layout.layout_class_list_recycler,parent,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v =  LayoutInflater.from(context).inflate(R.layout.layout_category_info_class_selection_recycler,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return  viewHolder;
@@ -50,12 +52,12 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClassSelectionRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
 
         holder.className.setText(classArrayList.get(position).getName());
 
-        Intent intent = new Intent(context,AttendanceViewActivity.class);
+        Intent intent = new Intent(context, AttendanceViewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
@@ -69,7 +71,7 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
             @Override
             public void onClick(View view) {
 
-//                context.startActivity(intent);
+               // context.startActivity(intent);
 
             }
         });
@@ -93,7 +95,7 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
                 {
                     currentExpandedPosition = holder.getAdapterPosition();
 //                    context.startActivity(intent);
-                    ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
+                   // ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
                 }
                 else
                 {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     tools:context=".frontend.teacherregistration.RegisterSubjectInfoAndCategoryActivity">
 
     <TextView
@@ -12,12 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Subject Info"
-        android:textSize="50sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06"
         tools:layout_editor_absoluteX="16dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/subject_name"
@@ -26,6 +34,7 @@
         android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
         android:hint="Subject Name"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.097"
@@ -38,45 +47,60 @@
         android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
         android:hint="Subject Code"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.259"
         tools:layout_editor_absoluteX="40dp" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Categories"
-        android:textSize="50dp"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subject_code"
         app:layout_constraintVertical_bias="0.054"
         tools:layout_editor_absoluteX="0dp" />
 
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/addcategory_and_select_class"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/baseline_add_24"
-        app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        android:layout_height="300sp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/register_category_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806" />
+        android:id="@+id/category_recyle_view"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.cardview.widget.CardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addcategory_and_select_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.823" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+

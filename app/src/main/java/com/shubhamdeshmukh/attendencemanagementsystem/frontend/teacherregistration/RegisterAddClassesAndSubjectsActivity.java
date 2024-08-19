@@ -3,9 +3,11 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,7 +20,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnecti
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.SubjectRecyclerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.SubjectRegisterRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,8 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         });
 
         FloatingActionButton  fab1 = findViewById(R.id.add);
-        FloatingActionButton fab2 = findViewById(R.id.addSubject);
-        FloatingActionButton fab3 = findViewById(R.id.addclass);
+        CardView fab2 = findViewById(R.id.addSubject);
+        CardView fab3 = findViewById(R.id.add_class);
 
         RecyclerView classRecyclerView = findViewById(R.id.register_class_recycler);
         RecyclerView subjectRecyclerView = findViewById(R.id.register_subject_recycler);
@@ -56,33 +58,33 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
 
         ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
         classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
-        SubjectRecyclerAdapter subjectRecyclerAdapter = new SubjectRecyclerAdapter(this, subjectList);
+        SubjectRegisterRecyclerAdapter subjectRecyclerAdapter = new SubjectRegisterRecyclerAdapter(this, subjectList);
         subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
 
 
-       fab1.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               if (toggle)
-               {
-                   fab2.setVisibility(View.GONE);
-                   fab3.setVisibility(View.GONE);
-               }
-               else {
-                   fab2.setVisibility(View.VISIBLE);
-                   fab3.setVisibility(View.VISIBLE);
-               }
-               toggle = !toggle;
-           }
-       });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (toggle)
+                {
+                    fab2.setVisibility(View.GONE);
+                    fab3.setVisibility(View.GONE);
+                }
+                else {
+                    fab2.setVisibility(View.VISIBLE);
+                    fab3.setVisibility(View.VISIBLE);
+                }
+                toggle = !toggle;
+            }
+        });
 
-       fab2.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent = new Intent(getApplicationContext(), RegisterSubjectInfoAndCategoryActivity.class);
-               startActivity(intent);
-           }
-       });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterSubjectInfoAndCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fab3.setOnClickListener(new View.OnClickListener() {
 
