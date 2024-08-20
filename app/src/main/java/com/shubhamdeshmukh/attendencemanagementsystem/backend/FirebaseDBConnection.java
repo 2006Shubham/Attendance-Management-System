@@ -327,4 +327,9 @@ public class FirebaseDBConnection {
     {
         registrationData = data;
     }
+
+    public void completeRegistration()
+    {
+        fetchedData = registrationData;
+    }
 }

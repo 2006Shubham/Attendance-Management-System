@@ -83,4 +83,8 @@ public class Class {
     public ArrayList<Batch> getBatchList() {
         return batchList;
     }
+
+    public void setBatchList(ArrayList<Batch> batchList) {
+        this.batchList = batchList;
+    }
 }

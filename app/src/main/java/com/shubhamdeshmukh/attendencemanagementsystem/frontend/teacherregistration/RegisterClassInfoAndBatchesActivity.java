@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,15 +23,17 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnecti
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Data;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
 
 public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
-    ArrayList<Batch>batchArrayList;
+    ArrayList<BatchSelection> batchSelectionArrayList;
     int selectedClassIndex;
+
+    BatchRegisterRecyclerAdapter currentAdapter;
 
 
     @Override
@@ -49,10 +52,12 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
         selectedClassIndex = intent.getIntExtra("classFetchedDataIndex", -1);
+        ArrayList<Batch> batchArrayList;
 
         if (selectedClassIndex == -1) {
 
-            batchArrayList = firebaseDBConnection.getRegistrationData().batches;
+            batchArrayList  = firebaseDBConnection.getRegistrationData().batches;
+
         }
         else
         {
@@ -62,10 +67,18 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
             batchArrayList = _class.getBatchList();
         }
 
-
+//        selectedBatches = new ArrayList<>(Collections.nCopies(batchArrayList.size(), false));
         RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(),batchArrayList, this));
+
+        this.batchSelectionArrayList = new ArrayList<>();
+        for (Batch batch:
+                batchArrayList) {
+            this.batchSelectionArrayList.add(new BatchSelection(batch));
+        }
+
+        currentAdapter = new BatchRegisterRecyclerAdapter(getApplicationContext(),batchSelectionArrayList, this);
+        recyclerView.setAdapter(currentAdapter);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +88,39 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                 showBatchInfoDialog(-1);
             }
         });
+
+        Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Data registrationData = firebaseDBConnection.getRegistrationData();
+                ArrayList<Batch> newBatchList = new ArrayList<>();
+                ArrayList<Batch> registeredBatchList = new ArrayList<>();
+
+                for (BatchSelection batchSelection:
+                     batchSelectionArrayList) {
+                    if (batchSelection.isSelected())
+                    {
+                        newBatchList.add(batchSelection.getBatch());
+                    }
+                    registeredBatchList.add((batchSelection.getBatch()));
+                }
+                registrationData.classes.get(selectedClassIndex).setBatchList(newBatchList);
+                registrationData.batches = registeredBatchList;
+                firebaseDBConnection.setRegistrationData(registrationData);
+                firebaseDBConnection.completeRegistration();
+                FirebaseDBConnection.updateDatabase();
+                Log.d(MainActivity.TAG, "onClick: COMPLETED REGISTRATION!");
+            }
+        });
     }
 
+    private void updateRecycler()
+    {
+        RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(), batchSelectionArrayList, this));
+    }
 
     public void showBatchInfoDialog(int selectedBatch) {
         // Create an AlertDialog Builder
@@ -104,9 +148,9 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
         if (selectedBatch != -1)
         {
-            editTextBatchName.setText(batchArrayList.get(selectedBatch).getName());
-            editTextStartingStudentNo.setText(batchArrayList.get(selectedBatch).getStartId());
-            editTextEndingStudentNo.setText(batchArrayList.get(selectedBatch).getEndId());
+            editTextBatchName.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getName());
+            editTextStartingStudentNo.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getStartId());
+            editTextEndingStudentNo.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getEndId());
         }
 
         // Set an OnClickListener for the Submit button
@@ -147,9 +191,14 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                     registrationData.classes.add(newClass);
                     selectedClassIndex = registrationData.classes.size() - 1;
                 }
-
                 firebaseDBConnection.setRegistrationData(registrationData);
-
+                ArrayList<Batch> batchArrayList = registrationData.classes.get(selectedClassIndex).getBatchList();
+                batchSelectionArrayList = new ArrayList<>();
+                for (Batch batch:
+                        batchArrayList) {
+                    batchSelectionArrayList.add(new BatchSelection(batch));
+                }
+                updateRecycler();
                 // Perform action with the input data
                 // For example, you can validate inputs or submit them to a server
 
