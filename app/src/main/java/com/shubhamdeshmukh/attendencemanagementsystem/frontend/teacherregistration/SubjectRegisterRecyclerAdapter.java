@@ -1,6 +1,5 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,11 +9,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
 
 import java.util.ArrayList;
 

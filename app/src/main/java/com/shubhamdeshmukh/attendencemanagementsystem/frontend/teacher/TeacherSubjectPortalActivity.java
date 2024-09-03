@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Subject;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;

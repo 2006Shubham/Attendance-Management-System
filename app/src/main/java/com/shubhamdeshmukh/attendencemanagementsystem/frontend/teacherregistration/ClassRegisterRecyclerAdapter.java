@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 
 import java.util.ArrayList;
 

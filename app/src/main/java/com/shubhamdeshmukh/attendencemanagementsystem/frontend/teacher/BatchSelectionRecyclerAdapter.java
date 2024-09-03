@@ -1,7 +1,6 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 
 import java.util.ArrayList;
 

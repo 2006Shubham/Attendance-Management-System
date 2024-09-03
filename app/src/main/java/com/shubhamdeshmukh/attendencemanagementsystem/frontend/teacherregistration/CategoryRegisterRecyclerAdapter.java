@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionRecylerAdapter;
 
 import java.util.ArrayList;
 

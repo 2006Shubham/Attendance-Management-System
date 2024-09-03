@@ -1,4 +1,6 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities;
+
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.other_entities.Account;
 
 public class Monitor extends Account {
 

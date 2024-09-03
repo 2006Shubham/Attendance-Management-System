@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Category;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<CategorySelectionRecylerAdapter.ViewHolder> {
 

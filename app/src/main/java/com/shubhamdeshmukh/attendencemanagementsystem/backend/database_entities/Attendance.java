@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities;
 
 import java.util.ArrayList;
 import java.util.Date;
