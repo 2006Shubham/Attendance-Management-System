@@ -1,10 +1,10 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities;
 
-import android.util.Log;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.other_entities.Account;
 
 import java.util.ArrayList;
 
-public class Teacher extends Account{
+public class Teacher extends Account {
 
     private ArrayList<Subject> subjects;
 

@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Class;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Data;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 

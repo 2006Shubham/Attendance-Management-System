@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.other_entities;
 
 // User Account representing either Teacher or a Student (Class representative) Entity
 public class Account {
@@ -6,6 +6,7 @@ public class Account {
     private String userID;
 
     private String type;
+    private MetaInfo metaInfo;
 
     public Account () {}
 
@@ -34,4 +35,8 @@ public class Account {
     }
 
     public String getType() { return type; }
+
+    public MetaInfo getMetaInfo() {
+        return metaInfo;
+    }
 }

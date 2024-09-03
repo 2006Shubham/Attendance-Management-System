@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities;
 
 // Represents a Student entity - Like 'Yash Bhavsar - 224002', 'Shubham Deshmukh - 226008', etc
 public class Student {

@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.backend.entities;
+package com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities;
 
 public class StudentStatus {
     private Student student;

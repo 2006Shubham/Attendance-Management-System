@@ -1,6 +1,6 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.backend.models;
 
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 
 public class BatchSelection {
 
