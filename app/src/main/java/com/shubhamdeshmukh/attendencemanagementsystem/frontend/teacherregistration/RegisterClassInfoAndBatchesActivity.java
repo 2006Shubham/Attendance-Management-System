@@ -30,10 +30,10 @@ import java.util.ArrayList;
 
 public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
-    ArrayList<BatchSelection> batchSelectionArrayList;
+    ArrayList<Batch> batchArrayList;
     int selectedClassIndex;
 
-    BatchRegisterRecyclerAdapter currentAdapter;
+    BatchSelectionRecyclerAdapter currentAdapter;
 
 
     @Override
@@ -52,7 +52,6 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
         selectedClassIndex = intent.getIntExtra("classFetchedDataIndex", -1);
-        ArrayList<Batch> batchArrayList;
 
         if (selectedClassIndex == -1) {
 
@@ -71,13 +70,8 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        this.batchSelectionArrayList = new ArrayList<>();
-        for (Batch batch:
-                batchArrayList) {
-            this.batchSelectionArrayList.add(new BatchSelection(batch));
-        }
 
-        currentAdapter = new BatchRegisterRecyclerAdapter(getApplicationContext(),batchSelectionArrayList, this);
+        currentAdapter = new BatchSelectionRecyclerAdapter(batchArrayList, this);
         recyclerView.setAdapter(currentAdapter);
 
 
@@ -94,17 +88,10 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Data registrationData = firebaseDBConnection.getRegistrationData();
-                ArrayList<Batch> newBatchList = new ArrayList<>();
+                ArrayList<Batch> newBatchList = currentAdapter.getBatchArrayList();;
                 ArrayList<Batch> registeredBatchList = new ArrayList<>();
 
-                for (BatchSelection batchSelection:
-                     batchSelectionArrayList) {
-                    if (batchSelection.isSelected())
-                    {
-                        newBatchList.add(batchSelection.getBatch());
-                    }
-                    registeredBatchList.add((batchSelection.getBatch()));
-                }
+
                 registrationData.classes.get(selectedClassIndex).setBatchList(newBatchList);
                 registrationData.batches = registeredBatchList;
                 firebaseDBConnection.setRegistrationData(registrationData);
@@ -119,7 +106,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
     {
         RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(getApplicationContext(), batchSelectionArrayList, this));
+        recyclerView.setAdapter(new BatchSelectionRecyclerAdapter(batchArrayList, this));
     }
 
     public void showBatchInfoDialog(int selectedBatch) {
@@ -148,9 +135,9 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
 
         if (selectedBatch != -1)
         {
-            editTextBatchName.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getName());
-            editTextStartingStudentNo.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getStartId());
-            editTextEndingStudentNo.setText(batchSelectionArrayList.get(selectedBatch).getBatch().getEndId());
+            editTextBatchName.setText(batchArrayList.get(selectedBatch).getName());
+            editTextStartingStudentNo.setText(batchArrayList.get(selectedBatch).getStartId());
+            editTextEndingStudentNo.setText(batchArrayList.get(selectedBatch).getEndId());
         }
 
         // Set an OnClickListener for the Submit button
@@ -193,11 +180,6 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                 }
                 firebaseDBConnection.setRegistrationData(registrationData);
                 ArrayList<Batch> batchArrayList = registrationData.classes.get(selectedClassIndex).getBatchList();
-                batchSelectionArrayList = new ArrayList<>();
-                for (Batch batch:
-                        batchArrayList) {
-                    batchSelectionArrayList.add(new BatchSelection(batch));
-                }
                 updateRecycler();
                 // Perform action with the input data
                 // For example, you can validate inputs or submit them to a server
