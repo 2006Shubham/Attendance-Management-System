@@ -108,4 +108,10 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         SubjectRegisterRecyclerAdapter subjectRecyclerAdapter = new SubjectRegisterRecyclerAdapter(this, subjectList);
         subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        updateRecyclers();
+    }
 }

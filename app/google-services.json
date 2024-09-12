@@ -1,8 +1,9 @@
 {
   "project_info": {
-    "project_number": "440175035692",
-    "project_id": "test001-yg7",
-    "storage_bucket": "test001-yg7.appspot.com"
+    "project_number": "1007773132982",
+    "firebase_url": "https://objectstore-7a147-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "objectstore-7a147",
+    "storage_bucket": "objectstore-7a147.appspot.com"
   },
   "client": [
     {

@@ -41,6 +41,16 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button submitSubject = findViewById(R.id.SubmitSubject);
+
+
+        submitSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
 
         FloatingActionButton addCategoryFloatingButton = findViewById(R.id.addcategory_and_select_class);
         Intent intent = getIntent();
@@ -72,7 +82,9 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
 
 
 
