@@ -35,9 +35,8 @@ public class TeacherAfterRegistrationActivity extends AppCompatActivity {
 
         Button addSubjects = findViewById(R.id.add_subjects);
 
-        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
 
-        subjectList = dbConnection.getFetchedData().subjects;
+        subjectList = MainActivity.dbConnection.getFetchedData().subjects;
 
 //        dbConnection.getAccount(new ValueCallback<Object>() {
 //

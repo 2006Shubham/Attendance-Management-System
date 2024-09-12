@@ -62,7 +62,7 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
 
         holder.batchlist_recycler.setLayoutManager(new LinearLayoutManager(context));
-        holder.batchlist_recycler.setAdapter(new BatchSelectionRecyclerAdapter(classArrayList.get(position).getBatchList(),context));
+        holder.batchlist_recycler.setAdapter(new BatchRegisterRecyclerAdapter(classArrayList.get(position).getBatchList(),context));
 
         Log.d(MainActivity.TAG, "onBindViewHolder: Batch: " + classArrayList.get(position).getBatchList());
 

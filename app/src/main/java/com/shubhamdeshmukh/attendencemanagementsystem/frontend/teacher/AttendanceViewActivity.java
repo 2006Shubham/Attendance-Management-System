@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseAuthentication;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Attendance;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
@@ -56,9 +57,7 @@ public class AttendanceViewActivity extends AppCompatActivity {
         Log.d(MainActivity.TAG, "onCreate: INDEXES" + subjectIndex + " " + categoryIndex + " " + classIndex + " " + batchIndex);
 
 
-        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
-
-        dbConnection.getAccount(new ValueCallback<Object>() {
+        MainActivity.dbConnection.getAccount(new ValueCallback<Object>() {
 
             @Override
             public void onReceiveValue(Object obj) {

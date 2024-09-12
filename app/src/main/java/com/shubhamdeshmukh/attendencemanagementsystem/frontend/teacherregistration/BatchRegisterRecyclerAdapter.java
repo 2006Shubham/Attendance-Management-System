@@ -1,87 +1,84 @@
 package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 
 import java.util.ArrayList;
 
 public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegisterRecyclerAdapter.ViewHolder> {
 
+    public ArrayList<Batch> getBatchArrayList() {
+        return batchArrayList;
+    }
+
+    ArrayList<Batch>batchArrayList;
     Context context;
-    ArrayList<BatchSelection> batchSelectionArrayList;
 
-    RegisterClassInfoAndBatchesActivity parent;
+    public BatchRegisterRecyclerAdapter(ArrayList<Batch>batchArrayList, Context context){
 
-    BatchRegisterRecyclerAdapter(Context context, ArrayList<BatchSelection> batchSelectionArrayList, RegisterClassInfoAndBatchesActivity parent){
-
+        this.batchArrayList = batchArrayList;
         this.context = context;
-        this.batchSelectionArrayList = batchSelectionArrayList;
-        Log.d(MainActivity.TAG, String.valueOf(BatchRegisterRecyclerAdapter.this.batchSelectionArrayList.size()));
-        this.parent = parent;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-       View v  =  LayoutInflater.from(context).inflate(R.layout.layout_class_and_subject_category_register_recycler,parent,false);
+        View v =  LayoutInflater.from(context).inflate(R.layout.layout_batch_list_recycler,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
-        return  viewHolder;
-
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.batch_name.setText(batchSelectionArrayList.get(holder.getAdapterPosition()).getBatch().getName());
-        holder.checkBox.setChecked(batchSelectionArrayList.get(holder.getAdapterPosition()).isSelected());
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+        holder.batchname.setText(batchArrayList.get(position).getName());
+        holder.batch_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                batchSelectionArrayList.get(holder.getAdapterPosition()).setSelected(holder.checkBox.isChecked());
+
+//                Intent intent = new Intent(context, AttendanceViewActivity.class);
+//                context.startActivity(intent);
+//                ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(holder.getAdapterPosition()); // Sending Current Batch Index
+
+                if (context instanceof RegisterClassInfoAndBatchesActivity)
+                {
+                    ((RegisterClassInfoAndBatchesActivity) context).showBatchInfoDialog(holder.getAdapterPosition());
+                }
             }
         });
 
-        holder.batch_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                parent.showBatchInfoDialog(holder.getAdapterPosition());
-            }
-        });
-    }
 
-    public ArrayList<BatchSelection> getBatchSelectionArrayList() {
-        return batchSelectionArrayList;
+
     }
 
     @Override
     public int getItemCount() {
-        return batchSelectionArrayList.size();
+        return batchArrayList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView batch_name;
-        CheckBox checkBox;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        LinearLayout batch_layout ;
+        TextView batchname ;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            batch_name  = itemView.findViewById(R.id.name);
-            checkBox = itemView.findViewById(R.id.checkbox);
+            batch_layout =  itemView.findViewById(R.id.batch_card);
+            batchname = itemView.findViewById(R.id.batchname);
         }
     }
 }
