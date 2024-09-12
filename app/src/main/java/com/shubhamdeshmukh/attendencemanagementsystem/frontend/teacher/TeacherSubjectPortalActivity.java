@@ -41,8 +41,7 @@ public class TeacherSubjectPortalActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
-        dbConnection.getAccount(new ValueCallback<Object>() {
+        MainActivity.dbConnection.getAccount(new ValueCallback<Object>() {
 
             @Override
             public void onReceiveValue(Object obj) {

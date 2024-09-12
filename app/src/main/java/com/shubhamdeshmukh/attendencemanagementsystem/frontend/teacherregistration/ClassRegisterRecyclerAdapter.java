@@ -48,7 +48,7 @@ public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RegisterClassInfoAndBatchesActivity.class);
-                intent.putExtra("classFetchedDataIndex", holder.getAdapterPosition());
+                intent.putExtra("classFetchedDataIndex", holder.getBindingAdapterPosition());
                 context.startActivity(intent);
             }
         });

@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.BackendTestingCode;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseAuthentication;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.login.LoginActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.TeacherSubjectPortalActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.TeacherAfterRegistrationActivity;
@@ -34,11 +36,8 @@ import java.time.format.DateTimeFormatter;
 public class MainActivity extends AppCompatActivity {
 
     public static final String  TAG = "YashGames2007";
-    private final String ID_COUNT_KEY = "ID_COUNT";
-
-    public static FirebaseDatabase database;
-    private FirebaseDBConnection dbConnection;
-    public static FirebaseAuth mAuth;
+    public static FirebaseDBConnection dbConnection;
+    public static FirebaseAuthentication authHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,69 +53,32 @@ public class MainActivity extends AppCompatActivity {
 
         // Write Code Here
         Log.d(TAG, "In Main 1");
-        String dbAccessLink = getString(R.string.FIREBASE_DB_ACCESS_LINK);
-        MainActivity.database = FirebaseDatabase.getInstance(dbAccessLink);
-        MainActivity.mAuth = FirebaseAuth.getInstance();
-        authenticate();
-        FirebaseDBConnection.fetchData();
-//        trialCode();
-        dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
-        manageInput();
-//        dbConnection.trialCode();
-    }
+        dbConnection = new FirebaseDBConnection(getString(R.string.FIREBASE_DB_ACCESS_LINK));
 
-    private void trialCode()
-    {
-//        Teacher teacher = new Teacher("P V Sontakke");
-//        teacher.addSubject("Cloud Computing", "6N201");
-//        teacher.addSubject("Computer Network", "6N203");
-//
-//        DatabaseReference node = database.getReference("XYZ");
-//        node.setValue(teacher);
-//        Log.d(TAG, "trialCode   : Teacher Info: " + teacher.printInfo());
-//
-//        // Get a node
-//        node.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    Teacher teacher = snapshot.getValue(Teacher.class);
-//                    Log.d(TAG, "onDataChange: Teacher Info: " + teacher.printInfo());
-//
-//                } else {
-//                    Log.d(TAG, "onDataChange: Value doesn't exist");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-    }
 
-    private void authenticate() {
         TextView idText = findViewById(R.id.loginID);
         Button logoutButton = findViewById(R.id.buttonLogout);
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user == null) {
-            fireLoginActivity();
-        }
-        else {
-            Log.d(TAG, "In Main");
-            idText.setText(user.getEmail());
-            FirebaseDBConnection.setUserId(MainActivity.mAuth.getCurrentUser().getUid());
-        }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
                 fireLoginActivity();
             }
         });
+
+        Log.d(MainActivity.TAG, "In Main");
+        authHandler = new FirebaseAuthentication();
+
+        if (authHandler.authenticate()) {
+            idText.setText(authHandler.getCurrentUser().getEmail());
+        }
+        else {
+            fireLoginActivity();
+        }
+
+        FirebaseDBConnection.fetchData();
+        manageInput();
+//        dbConnection.trialCode();
     }
 
     private void manageInput() {
@@ -129,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String data = inputField.getText().toString();
-                testFirebase(data);
+                BackendTestingCode.testFirebase(data, FirebaseDBConnection.getDatabase());
                 inputField.setText("");
 
                 startActivity(intent);
@@ -140,87 +102,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getCurrentIDCount(final ValueCallback<Object> callback) {
-        DatabaseReference idCountRef = database.getReference(ID_COUNT_KEY);
-
-        idCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    int existingValue = Integer.parseInt(dataSnapshot.getValue().toString());
-                    idCountRef.setValue(existingValue + 1);
-                    callback.onReceiveValue(existingValue + 1); // Call the callback with the value
-                } else {
-                    idCountRef.setValue(1);
-                    callback.onReceiveValue(1); // Indicate no value exists
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle errors
-                callback.onReceiveValue(null); // Indicate an error occurred
-            }
-        });
-    }
-
-    private void testFirebase(String data) {
-        getCurrentIDCount(new ValueCallback<Object>() {
-            @Override
-            public void onReceiveValue(Object value) {
-                if (value != null) {
-                    // Do something with the existing value - Add new data to database
-
-                    int currentID = Integer.parseInt(value.toString());
-                    DatabaseReference dataRef = database.getReference("Message No " + currentID);
-
-                    // Create child nodes
-                    DatabaseReference dataValueRef = dataRef.child("value");
-                    dataValueRef.setValue(data);
-
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        DatabaseReference dateRef = dataRef.child("dateTime");
-
-                        // Get current date and time
-                        LocalDateTime now = LocalDateTime.now();
-
-                        // Define the desired format
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-                        // Format the date and time as a string
-                        String formattedDateTime = now.format(formatter);
-
-                        // Set values for the child nodes
-                        dateRef.setValue(formattedDateTime);
-                    }
-                } else {
-                    // No existing value or an error occurred
-                    System.out.println("No existing value or error");
-                }
-            }
-        });
-
-        // Read from the database
-
-//        idCountRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                String value = dataSnapshot.getValue(String.class);
-//                Log.d(TAG, "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-    }
-
     private void fireLoginActivity()
     {
+        authHandler.signOut();
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();

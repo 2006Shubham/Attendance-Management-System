@@ -28,8 +28,6 @@ import java.util.ArrayList;
 
 public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
-
-
     ArrayList<Category> categoryArrayList;
 
     @Override
@@ -44,18 +42,17 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = findViewById(R.id.addcategory_and_select_class);
+        FloatingActionButton addCategoryFloatingButton = findViewById(R.id.addcategory_and_select_class);
         Intent intent = getIntent();
-        FirebaseDBConnection firebaseDBConnection = new FirebaseDBConnection(MainActivity.database,MainActivity.mAuth);
         int subjectIndex = intent.getIntExtra("subjectFetchedDataIndex", -1);
 
         if (subjectIndex == -1) {
 
-            categoryArrayList = firebaseDBConnection.getFetchedData().categories;
+            categoryArrayList = MainActivity.dbConnection.getFetchedData().categories;
         }
         else
         {
-            Subject subject = firebaseDBConnection.getFetchedData().subjects.get(subjectIndex);
+            Subject subject = MainActivity.dbConnection.getFetchedData().subjects.get(subjectIndex);
             EditText subjectName = findViewById(R.id.subject_name);
             EditText subjectCode = findViewById(R.id.subject_code);
             subjectName.setText(subject.getName());
@@ -66,7 +63,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this, categoryArrayList, this));
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        addCategoryFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -91,9 +88,8 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         RecyclerView recyclerView = dialogView.findViewById(R.id.class_and_batch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
         FirebaseDBConnection.fetchData();
-        ArrayList<Class> classList = dbConnection.getFetchedData().classes;
+        ArrayList<Class> classList = MainActivity.dbConnection.getFetchedData().classes;
 
 
         // Set the custom layout as the dialog's view

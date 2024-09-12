@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
@@ -40,9 +39,9 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
             return insets;
         });
 
-        FloatingActionButton  fab1 = findViewById(R.id.add);
-        CardView fab2 = findViewById(R.id.addSubject);
-        CardView fab3 = findViewById(R.id.add_class);
+        FloatingActionButton addSubjectOrClassParentButtonCard = findViewById(R.id.add);
+        CardView addSubjectButtonCard = findViewById(R.id.addSubject);
+        CardView addClassButtonCard = findViewById(R.id.add_class);
 
         RecyclerView classRecyclerView = findViewById(R.id.register_class_recycler);
         RecyclerView subjectRecyclerView = findViewById(R.id.register_subject_recycler);
@@ -50,9 +49,8 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseDBConnection dbConnection = new FirebaseDBConnection(MainActivity.database, MainActivity.mAuth);
-        classList = dbConnection.getFetchedData().classes;
-        subjectList = dbConnection.getFetchedData().subjects;
+        classList = MainActivity.dbConnection.getFetchedData().classes;
+        subjectList = MainActivity.dbConnection.getFetchedData().subjects;
 
         ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
         classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
@@ -60,23 +58,23 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
 
 
-        fab1.setOnClickListener(new View.OnClickListener() {
+        addSubjectOrClassParentButtonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (toggle)
                 {
-                    fab2.setVisibility(View.GONE);
-                    fab3.setVisibility(View.GONE);
+                    addSubjectButtonCard.setVisibility(View.GONE);
+                    addClassButtonCard.setVisibility(View.GONE);
                 }
                 else {
-                    fab2.setVisibility(View.VISIBLE);
-                    fab3.setVisibility(View.VISIBLE);
+                    addSubjectButtonCard.setVisibility(View.VISIBLE);
+                    addClassButtonCard.setVisibility(View.VISIBLE);
                 }
                 toggle = !toggle;
             }
         });
 
-        fab2.setOnClickListener(new View.OnClickListener() {
+        addSubjectButtonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterSubjectInfoAndCategoryActivity.class);
@@ -84,7 +82,7 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
             }
         });
 
-        fab3.setOnClickListener(new View.OnClickListener() {
+        addClassButtonCard.setOnClickListener(new View.OnClickListener() {
 
             Intent intent = new Intent(getApplicationContext(), RegisterClassInfoAndBatchesActivity.class);
             @Override
@@ -92,5 +90,22 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
                     startActivity(intent);
             }
         });
+    }
+
+    public void updateRecyclers()
+    {
+        RecyclerView classRecyclerView = findViewById(R.id.register_class_recycler);
+        RecyclerView subjectRecyclerView = findViewById(R.id.register_subject_recycler);
+
+        classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        classList = MainActivity.dbConnection.getFetchedData().classes;
+        subjectList = MainActivity.dbConnection.getFetchedData().subjects;
+
+        ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
+        classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
+        SubjectRegisterRecyclerAdapter subjectRecyclerAdapter = new SubjectRegisterRecyclerAdapter(this, subjectList);
+        subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
     }
 }

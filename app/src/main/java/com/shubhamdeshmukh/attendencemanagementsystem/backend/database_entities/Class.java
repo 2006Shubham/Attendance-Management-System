@@ -87,4 +87,8 @@ public class Class {
     public void setBatchList(ArrayList<Batch> batchList) {
         this.batchList = batchList;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

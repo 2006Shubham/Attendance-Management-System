@@ -49,7 +49,7 @@ public class CategoryRegisterRecyclerAdapter extends RecyclerView.Adapter<Catego
         holder.category_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                parent.showCategoryInfoDialog(holder.getAdapterPosition());
+                parent.showCategoryInfoDialog(holder.getBindingAdapterPosition());
             }
         });
     }
