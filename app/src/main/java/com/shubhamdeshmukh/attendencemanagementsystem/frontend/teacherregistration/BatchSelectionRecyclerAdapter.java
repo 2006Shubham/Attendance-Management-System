@@ -22,14 +22,14 @@ public class BatchSelectionRecyclerAdapter extends RecyclerView.Adapter<BatchSel
     Context context;
     ArrayList<BatchSelection> batchSelectionArrayList;
 
-    RegisterClassInfoAndBatchesActivity parent;
+//    RegisterClassInfoAndBatchesActivity parent;
 
-    BatchSelectionRecyclerAdapter(Context context, ArrayList<BatchSelection> batchSelectionArrayList, RegisterClassInfoAndBatchesActivity parent){
+    BatchSelectionRecyclerAdapter(Context context, ArrayList<BatchSelection> batchSelectionArrayList){
 
         this.context = context;
         this.batchSelectionArrayList = batchSelectionArrayList;
         Log.d(MainActivity.TAG, String.valueOf(this.batchSelectionArrayList.size()));
-        this.parent = parent;
+//        this.parent = parent;
     }
 
     @NonNull
@@ -58,7 +58,7 @@ public class BatchSelectionRecyclerAdapter extends RecyclerView.Adapter<BatchSel
         holder.batch_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                parent.showBatchInfoDialog(holder.getBindingAdapterPosition());
+//                parent.showBatchInfoDialog(holder.getBindingAdapterPosition());
             }
         });
     }

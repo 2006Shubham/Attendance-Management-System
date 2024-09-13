@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.AttendanceViewActivity;
@@ -62,28 +64,27 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
         holder.checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                classSelectionArrayList.get(holder.getBindingAdapterPosition()).setSelected(holder.checkbox.isSelected());
+                classSelectionArrayList.get(holder.getBindingAdapterPosition()).setSelected(holder.checkbox.isChecked());
+                Log.d(MainActivity.TAG, "onClick: SET" + holder.checkbox.isChecked());
             }
         });
 
         Intent intent = new Intent(context, AttendanceViewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        ArrayList<Batch> batchArrayList =  classSelectionArrayList.get(position).getThisClass().getBatchList();
+
+        classSelectionArrayList.get(position).setBatchSelectionArrayList(new ArrayList<>());
+        for (Batch batch:
+             batchArrayList) {
+            classSelectionArrayList.get(position).getBatchSelectionArrayList().add(new BatchSelection(batch, false));
+        }
 
         holder.batchlist_recycler.setLayoutManager(new LinearLayoutManager(context));
-        holder.batchlist_recycler.setAdapter(new BatchRegisterRecyclerAdapter(classSelectionArrayList.get(position).getThisClass().getBatchList(),context));
+        holder.batchlist_recycler.setAdapter(new BatchSelectionRecyclerAdapter(context, classSelectionArrayList.get(position).getBatchSelectionArrayList()));
 
         Log.d(MainActivity.TAG, "onBindViewHolder: Batch: " + classSelectionArrayList.get(position).getThisClass().getBatchList());
 
-
-        holder.classLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-               // context.startActivity(intent);
-
-            }
-        });
 
         if (ClassSelectionRecyclerAdapter.currentExpandedPosition == position)
         {
@@ -122,6 +123,10 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
 
 
+    }
+
+    public ArrayList<ClassSelection> getClassSelectionArrayList() {
+        return classSelectionArrayList;
     }
 
     @Override

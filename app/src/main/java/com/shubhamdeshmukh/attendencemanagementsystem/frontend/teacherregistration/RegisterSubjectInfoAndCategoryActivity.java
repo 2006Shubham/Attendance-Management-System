@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,10 @@ import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -30,6 +34,8 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
     ArrayList<Category> categoryArrayList;
 
+    int selectedSubjectIndex;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,15 +60,19 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
         FloatingActionButton addCategoryFloatingButton = findViewById(R.id.addcategory_and_select_class);
         Intent intent = getIntent();
-        int subjectIndex = intent.getIntExtra("subjectFetchedDataIndex", -1);
+        selectedSubjectIndex = intent.getIntExtra("subjectFetchedDataIndex", -1);
 
-        if (subjectIndex == -1) {
+        if (selectedSubjectIndex == -1) {
 
             categoryArrayList = MainActivity.dbConnection.getFetchedData().categories;
+            
+            Data registrationData = MainActivity.dbConnection.getRegistrationData();
+            registrationData.subjects.add(new Subject());
+            selectedSubjectIndex = registrationData.subjects.size() - 1;
         }
         else
         {
-            Subject subject = MainActivity.dbConnection.getFetchedData().subjects.get(subjectIndex);
+            Subject subject = MainActivity.dbConnection.getFetchedData().subjects.get(selectedSubjectIndex);
             EditText subjectName = findViewById(R.id.subject_name);
             EditText subjectCode = findViewById(R.id.subject_code);
             subjectName.setText(subject.getName());
@@ -76,19 +86,24 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         addCategoryFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                     showCategoryInfoDialog(-1);
-
             }
         });
+    }
 
+    public void updateRecycler() {
+        categoryArrayList = MainActivity.dbConnection.getRegistrationData().subjects.get(selectedSubjectIndex).getCategoryList();
+        RecyclerView recyclerView = findViewById(R.id.category_recyle_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this, categoryArrayList, this));
 
     }
 
+    //    public ArrayList<Category> getCategoryArrayList() {
+//        return categoryArrayList;
+//    }
 
-
-
-    public void showCategoryInfoDialog(int selectedCategory) {
+    public void showCategoryInfoDialog(int selectedCategoryIndex) {
         // Create an AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflate the custom layout
@@ -103,6 +118,12 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         FirebaseDBConnection.fetchData();
         ArrayList<Class> classList = MainActivity.dbConnection.getFetchedData().classes;
 
+        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
+        for (Class _class:
+             classList) {
+            classSelectionArrayList.add(new ClassSelection(_class, false, new ArrayList<BatchSelection>()));
+        }
+
 
         // Set the custom layout as the dialog's view
         builder.setView(dialogView);
@@ -116,13 +137,13 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        if (selectedCategory != -1)
+        if (selectedCategoryIndex != -1)
         {
-            category_name.setText(categoryArrayList.get(selectedCategory).getName());
-            classList = categoryArrayList.get(selectedCategory).getClassList();
+            category_name.setText(categoryArrayList.get(selectedCategoryIndex).getName());
+            classList = categoryArrayList.get(selectedCategoryIndex).getClassList();
         }
 
-        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classList);
+        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classSelectionArrayList);
         recyclerView.setAdapter(classSelectionRecyclerAdapter);
 
         // Set an OnClickListener for the Submit button
@@ -131,8 +152,47 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle button click event
 
-                EditText category = findViewById(R.id.category_name);
+                ArrayList<ClassSelection> classSelectionArrayList1 = classSelectionRecyclerAdapter.getClassSelectionArrayList();
+                
+                ArrayList<Class> classArrayList = new ArrayList<>();
 
+                for (ClassSelection classSelection:
+                     classSelectionArrayList1) {
+                    if (classSelection.isSelected())
+                    {
+                        Class _class = classSelection.getThisClass();
+                        _class.setBatchList(new ArrayList<>());
+                        ArrayList<BatchSelection> batchSelectionArrayList = classSelection.getBatchSelectionArrayList();
+                        
+                        for (BatchSelection batchSelection:
+                             batchSelectionArrayList) {
+                            if (batchSelection.isSelected())
+                            {
+                                _class.addBatch(batchSelection.getBatch());
+                            }
+                        }
+                        
+                        classArrayList.add(_class);
+                    }
+                }
+                Log.d(MainActivity.TAG, "onClick: " + classArrayList);
+                Data data = MainActivity.dbConnection.getRegistrationData();
+
+                if (selectedCategoryIndex == -1)
+                {
+                    Category newCategory = new Category(category_name.getText().toString());
+                    newCategory.setClassList(classArrayList);
+                    data.subjects.get(selectedSubjectIndex).addCategory(newCategory);
+                }
+                else {
+                    Category selectedCategory = data.subjects.get(selectedSubjectIndex).getCategoryList().get(selectedCategoryIndex);
+                    selectedCategory.setName(category_name.getText().toString());
+                    selectedCategory.setClassList(classArrayList);
+                }
+
+                MainActivity.dbConnection.setRegistrationData(data);
+                MainActivity.dbConnection.completeRegistration();
+                FirebaseDBConnection.updateDatabase();
 //                Intent intent = new Intent(getApplicationContext(), RegisterAddClassesAndSubjectsActivity.class);
 //
 //                startActivity(intent);
@@ -143,6 +203,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
                 // Dismiss the dialog after processing
                 dialog.dismiss();
+                updateRecycler();
             }
         });
     }

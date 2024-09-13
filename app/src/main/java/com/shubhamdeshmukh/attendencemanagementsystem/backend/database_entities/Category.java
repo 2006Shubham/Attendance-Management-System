@@ -24,6 +24,10 @@ public class Category {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public ArrayList<Class> getClassList() {
         return classList;
     }
@@ -32,5 +36,9 @@ public class Category {
     @Override
     public String toString() {
         return "Name: " + getName();
+    }
+
+    public void setClassList(ArrayList<Class> classList) {
+        this.classList = classList;
     }
 }

@@ -8,10 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 
 import java.util.ArrayList;
 
@@ -21,10 +23,10 @@ public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegi
         return batchArrayList;
     }
 
-    ArrayList<Batch>batchArrayList;
+    ArrayList<Batch> batchArrayList;
     Context context;
 
-    public BatchRegisterRecyclerAdapter(ArrayList<Batch>batchArrayList, Context context){
+    public BatchRegisterRecyclerAdapter(ArrayList<Batch> batchArrayList, Context context){
 
         this.batchArrayList = batchArrayList;
         this.context = context;
@@ -35,7 +37,7 @@ public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v =  LayoutInflater.from(context).inflate(R.layout.layout_batch_list_recycler,parent,false);
+        View v =  LayoutInflater.from(context).inflate(R.layout.layout_register_batch_recycler,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -72,12 +74,12 @@ public class BatchRegisterRecyclerAdapter extends RecyclerView.Adapter<BatchRegi
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        LinearLayout batch_layout ;
+        CardView batch_layout ;
         TextView batchname ;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            batch_layout =  itemView.findViewById(R.id.batch_card);
+            batch_layout =  itemView.findViewById(R.id.register_batch);
             batchname = itemView.findViewById(R.id.batchname);
         }
     }

@@ -13,6 +13,13 @@ public class ClassSelection {
 
     public int globalIndex; // Index for Fetched Data
 
+    public  ClassSelection(Class _class, boolean isSelected, ArrayList<BatchSelection> batchSelectionArrayList)
+    {
+        this._class = _class;
+        this.isSelected = isSelected;
+        this.batchSelectionArrayList = batchSelectionArrayList;
+    }
+
     public ClassSelection(Class _class, boolean isSelected)
     {
         this._class = _class;
@@ -39,5 +46,13 @@ public class ClassSelection {
 
     public void setSelected(Boolean selected) {
         isSelected = selected;
+    }
+
+    public ArrayList<BatchSelection> getBatchSelectionArrayList() {
+        return batchSelectionArrayList;
+    }
+
+    public void setBatchSelectionArrayList(ArrayList<BatchSelection> batchSelectionArrayList) {
+        this.batchSelectionArrayList = batchSelectionArrayList;
     }
 }
