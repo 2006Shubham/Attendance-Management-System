@@ -24,6 +24,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -35,8 +36,6 @@ public class FirebaseDBConnection {
     private static Data fetchedData;
     private static Data registrationData;
 
-    private static Data selectionData;
-
     private static String uid;
 
     public FirebaseDBConnection(String dbAccessLink)
@@ -44,6 +43,7 @@ public class FirebaseDBConnection {
         this.database = FirebaseDatabase.getInstance(dbAccessLink);
 
         this.mAuth = FirebaseAuthentication.getMAuth();
+
 //        fetchAccounts();
         BackendTestingCode.trialCode(uid, database);
     }
@@ -167,5 +167,30 @@ public class FirebaseDBConnection {
 
     public static String getUid() {
         return uid;
+    }
+
+    public int getCurrentUserAsTeacherIndex() {
+        String uid = MainActivity.authHandler.getCurrentUser().getUid();
+        ArrayList<Account> accountArrayList = registrationData.accounts;
+
+
+        for (int i = 0; i < accountArrayList.size(); i++) {
+            Account account = accountArrayList.get(i);
+            if (account instanceof Teacher)
+            {
+                Teacher teacherAccount = (Teacher) account;
+                if (Objects.equals(teacherAccount.getUserID(), uid))
+                {
+                    return i;
+                }
+            }
+        }
+
+        accountArrayList.add(new Teacher("", uid));
+        registrationData.accounts = accountArrayList;
+        completeRegistration();
+        updateDatabase();
+
+        return accountArrayList.size() - 1; // New Teacher Index
     }
 }

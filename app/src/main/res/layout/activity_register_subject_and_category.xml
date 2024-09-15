@@ -101,7 +101,7 @@
 
 
         <Button
-            android:id="@+id/SubmitSubject"
+            android:id="@+id/SubmitData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit Data"

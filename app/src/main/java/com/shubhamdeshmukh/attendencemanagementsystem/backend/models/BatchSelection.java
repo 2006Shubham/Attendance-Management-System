@@ -6,7 +6,7 @@ public class BatchSelection {
 
     Batch batch;
     boolean isSelected;
-    public int globalIndex; // Index for Fetched Data
+//    public int globalIndex; // Index for Fetched Data
 
     public BatchSelection(Batch batch, Boolean isSelected)
     {
