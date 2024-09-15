@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -24,8 +26,12 @@ import java.util.ArrayList;
 public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
 
 
-    public static ArrayList<Class> classList;
-    public static ArrayList<Subject> subjectList;
+    public ArrayList<Class> classList;
+    public ArrayList<Subject> subjectList;
+
+    private SubjectSelectionRecyclerAdapter subjectSelectionRecyclerAdapter;
+    private ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter;
+
     private boolean toggle = false;
 
     @Override
@@ -52,10 +58,22 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         classList = MainActivity.dbConnection.getFetchedData().classes;
         subjectList = MainActivity.dbConnection.getFetchedData().subjects;
 
-        ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
-        classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
-        SubjectRegisterRecyclerAdapter subjectRecyclerAdapter = new SubjectRegisterRecyclerAdapter(this, subjectList);
-        subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
+        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
+        ArrayList<SubjectSelection> subjectSelectionArrayList = new ArrayList<>();
+
+        for (Class _class:
+            classList) {
+            classSelectionArrayList.add(new ClassSelection(_class, false));
+        }
+        for (Subject subject:
+             subjectList) {
+            subjectSelectionArrayList.add(new SubjectSelection(subject, false));
+        }
+
+        classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(this, classSelectionArrayList);
+        classRecyclerView.setAdapter(classSelectionRecyclerAdapter);
+        SubjectSelectionRecyclerAdapter subjectSelectionAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionArrayList);
+        subjectRecyclerView.setAdapter(subjectSelectionAdapter);
 
 
         addSubjectOrClassParentButtonCard.setOnClickListener(new View.OnClickListener() {
@@ -101,12 +119,17 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         classList = MainActivity.dbConnection.getFetchedData().classes;
-        subjectList = MainActivity.dbConnection.getFetchedData().subjects;
+        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
+        for (Class _class:
+                classList) {
+            classSelectionArrayList.add(new ClassSelection(_class, false));
+        }
 
-        ClassRegisterRecyclerAdapter classRegisterRecyclerAdapter = new ClassRegisterRecyclerAdapter(this,classList);
-        classRecyclerView.setAdapter(classRegisterRecyclerAdapter);
-        SubjectRegisterRecyclerAdapter subjectRecyclerAdapter = new SubjectRegisterRecyclerAdapter(this, subjectList);
-        subjectRecyclerView.setAdapter(subjectRecyclerAdapter);
+        classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(this, classSelectionArrayList);
+        classRecyclerView.setAdapter(classSelectionRecyclerAdapter);
+
+        subjectSelectionRecyclerAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionRecyclerAdapter.getSubjectSelectionArrayList());
+        subjectRecyclerView.setAdapter(subjectSelectionRecyclerAdapter);
     }
 
     @Override
