@@ -85,12 +85,12 @@ public class FirebaseDBConnection {
 
     public void getAccount(final ValueCallback<Object> callback)
     {
-        Log.d(MainActivity.TAG, "getAccount: Current Account: " + mAuth.getCurrentUser().getUid());
+        Log.d(MainActivity.TAG, "getAccount: Current Account: " + MainActivity.authHandler.getCurrentUser().getUid());
         Account accountRef = null;
         if (FirebaseDBConnection.fetchedData != null)
         {
             for (int i = 0; i < FirebaseDBConnection.fetchedData.accounts.size(); i++) {
-                if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getUserID(), mAuth.getCurrentUser().getUid()))
+                if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getUserID(), MainActivity.authHandler.getCurrentUser().getUid()))
                 {
                     if (Objects.equals(FirebaseDBConnection.fetchedData.accounts.get(i).getType(), "Teacher"))
                     {

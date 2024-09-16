@@ -3,6 +3,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistrat
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
@@ -26,8 +29,8 @@ import java.util.ArrayList;
 public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
 
 
-    public ArrayList<Class> classList;
-    public ArrayList<Subject> subjectList;
+    public ArrayList<ClassSelection> classSelectionArrayList;
+    public static ArrayList<SubjectSelection> subjectSelectionArrayList;
 
     private SubjectSelectionRecyclerAdapter subjectSelectionRecyclerAdapter;
     private ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter;
@@ -48,6 +51,7 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         FloatingActionButton addSubjectOrClassParentButtonCard = findViewById(R.id.add);
         CardView addSubjectButtonCard = findViewById(R.id.addSubject);
         CardView addClassButtonCard = findViewById(R.id.add_class);
+        Button submitButton = findViewById(R.id.submit);
 
         RecyclerView classRecyclerView = findViewById(R.id.register_class_recycler);
         RecyclerView subjectRecyclerView = findViewById(R.id.register_subject_recycler);
@@ -55,11 +59,11 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        classList = MainActivity.dbConnection.getFetchedData().classes;
-        subjectList = MainActivity.dbConnection.getFetchedData().subjects;
+        ArrayList<Class> classList = MainActivity.dbConnection.getFetchedData().classes;
+        ArrayList<Subject> subjectList = MainActivity.dbConnection.getFetchedData().subjects;
 
-        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
-        ArrayList<SubjectSelection> subjectSelectionArrayList = new ArrayList<>();
+        classSelectionArrayList = new ArrayList<>();
+        subjectSelectionArrayList = new ArrayList<>();
 
         for (Class _class:
             classList) {
@@ -108,6 +112,13 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
                     startActivity(intent);
             }
         });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void updateRecyclers()
@@ -118,17 +129,10 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        classList = MainActivity.dbConnection.getFetchedData().classes;
-        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
-        for (Class _class:
-                classList) {
-            classSelectionArrayList.add(new ClassSelection(_class, false));
-        }
-
         classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(this, classSelectionArrayList);
         classRecyclerView.setAdapter(classSelectionRecyclerAdapter);
 
-        subjectSelectionRecyclerAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionRecyclerAdapter.getSubjectSelectionArrayList());
+        subjectSelectionRecyclerAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionArrayList);
         subjectRecyclerView.setAdapter(subjectSelectionRecyclerAdapter);
     }
 

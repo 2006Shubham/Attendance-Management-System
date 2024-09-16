@@ -28,6 +28,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.CategorySelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -70,8 +71,11 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             categoryArrayList = MainActivity.dbConnection.getFetchedData().categories;
             
             Data registrationData = MainActivity.dbConnection.getRegistrationData();
-            registrationData.subjects.add(new Subject());
+            Subject newSubject = new Subject();
+            registrationData.subjects.add(newSubject);
             selectedSubjectIndex = registrationData.subjects.size() - 1;
+
+            RegisterAddClassesAndSubjectsActivity.subjectSelectionArrayList.add(new SubjectSelection(newSubject, false));
         }
         else
         {
@@ -144,6 +148,9 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
                 MainActivity.dbConnection.setRegistrationData(registrationData);
                 MainActivity.dbConnection.completeRegistration();
                 FirebaseDBConnection.updateDatabase();
+
+                RegisterAddClassesAndSubjectsActivity.subjectSelectionArrayList.get(selectedSubjectIndex).setSelected(true);
+                finish();
             }
         });
 

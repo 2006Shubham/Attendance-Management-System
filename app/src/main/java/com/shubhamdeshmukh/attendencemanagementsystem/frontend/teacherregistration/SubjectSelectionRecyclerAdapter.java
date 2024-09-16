@@ -44,6 +44,9 @@ public class SubjectSelectionRecyclerAdapter extends RecyclerView.Adapter<Subjec
     public void onBindViewHolder(@NonNull SubjectSelectionRecyclerAdapter.ViewHolder holder, int position) {
 
         holder.subname.setText(subjectSelectionArrayList.get(holder.getBindingAdapterPosition()).getSubject().getName()+" ("+ subjectSelectionArrayList.get(holder.getBindingAdapterPosition()).getSubject().getCode()+")");
+
+        holder.checkBox.setChecked(subjectSelectionArrayList.get(holder.getBindingAdapterPosition()).isSelected());
+
         holder.subname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +56,18 @@ public class SubjectSelectionRecyclerAdapter extends RecyclerView.Adapter<Subjec
             }
         });
 
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.checkBox.isChecked())
+                {
+                    holder.checkBox.setChecked(false);
+                    Intent intent = new Intent(context, RegisterSubjectInfoAndCategoryActivity.class);
+                    intent.putExtra("subjectFetchedDataIndex", holder.getBindingAdapterPosition());
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     public ArrayList<SubjectSelection> getSubjectSelectionArrayList() {
