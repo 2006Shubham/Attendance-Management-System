@@ -9,7 +9,9 @@ public class Subject {
     private String code;
     private ArrayList<Category> categoryList;
 
-    public Subject() {}
+    public Subject() {
+        this.categoryList = new ArrayList<>();
+    }
 
     public Subject(String name, String code)
     {
@@ -37,5 +39,17 @@ public class Subject {
     @Override
     public String toString() {
         return "Name: " + name + " Code: " + code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setCategoryList(ArrayList<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 }

@@ -24,8 +24,11 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.CategorySelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -33,8 +36,13 @@ import java.util.ArrayList;
 public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
     ArrayList<Category> categoryArrayList;
+    CategorySelectionRecyclerAdapter categorySelectionRecyclerAdapterInstance;
 
     int selectedSubjectIndex;
+    int registrationSubjectIndex;
+
+    EditText subjectName;
+    EditText subjectCode;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,41 +55,104 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button submitSubject = findViewById(R.id.SubmitSubject);
+        Button submitData = findViewById(R.id.SubmitData);
+        Button submitSelection = findViewById(R.id.SubmitSelection);
 
-
-        submitSubject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
-
+        subjectName = findViewById(R.id.subject_name);
+        subjectCode = findViewById(R.id.subject_code);
 
         FloatingActionButton addCategoryFloatingButton = findViewById(R.id.addcategory_and_select_class);
         Intent intent = getIntent();
         selectedSubjectIndex = intent.getIntExtra("subjectFetchedDataIndex", -1);
+        registrationSubjectIndex = -1;
 
         if (selectedSubjectIndex == -1) {
 
             categoryArrayList = MainActivity.dbConnection.getFetchedData().categories;
             
             Data registrationData = MainActivity.dbConnection.getRegistrationData();
-            registrationData.subjects.add(new Subject());
+            Subject newSubject = new Subject();
+            registrationData.subjects.add(newSubject);
             selectedSubjectIndex = registrationData.subjects.size() - 1;
+
+            RegisterAddClassesAndSubjectsActivity.subjectSelectionArrayList.add(new SubjectSelection(newSubject, false));
         }
         else
         {
             Subject subject = MainActivity.dbConnection.getFetchedData().subjects.get(selectedSubjectIndex);
-            EditText subjectName = findViewById(R.id.subject_name);
-            EditText subjectCode = findViewById(R.id.subject_code);
             subjectName.setText(subject.getName());
             subjectCode.setText(subject.getCode());
             categoryArrayList = subject.getCategoryList();
         }
-        RecyclerView recyclerView = findViewById(R.id.category_recyle_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this, categoryArrayList, this));
+
+        updateRecycler();
+
+        submitData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<CategorySelection> categorySelectionArrayList = categorySelectionRecyclerAdapterInstance.getCategorySelectionArrayList();
+                categoryArrayList = new ArrayList<>();
+
+                for (CategorySelection categorySelection:
+                     categorySelectionArrayList) {
+                    categoryArrayList.add(categorySelection.getCategory());
+                }
+
+                Data registrationData = MainActivity.dbConnection.getRegistrationData();
+                submitData(registrationData);
+            }
+        });
+
+
+        submitSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<CategorySelection> categorySelectionArrayList = categorySelectionRecyclerAdapterInstance.getCategorySelectionArrayList();
+                categoryArrayList = new ArrayList<>();
+
+                for (CategorySelection categorySelection:
+                        categorySelectionArrayList) {
+                    categoryArrayList.add(categorySelection.getCategory());
+                }
+
+                Data registrationData = MainActivity.dbConnection.getRegistrationData();
+                submitData(registrationData);
+
+                // Submitting Selection
+                categoryArrayList = new ArrayList<>();
+
+                for (CategorySelection categorySelection:
+                        categorySelectionArrayList) {
+                    if (categorySelection.isSelected())
+                    {
+                        categoryArrayList.add(categorySelection.getCategory());
+                    }
+                }
+
+                int currentUserAsTeacherIndex = MainActivity.dbConnection.getCurrentUserAsTeacherIndex();
+
+                Teacher currentUserAsTeacher = (Teacher) registrationData.accounts.get(currentUserAsTeacherIndex);
+
+
+                if (registrationSubjectIndex == -1) {
+                    Subject newSubject = new Subject(subjectName.getText().toString(), subjectCode.getText().toString());
+                    newSubject.setCategoryList(categoryArrayList);
+                    currentUserAsTeacher.addSubject(newSubject);
+                    registrationSubjectIndex = currentUserAsTeacher.getSubjects().size() - 1;
+                }
+                else {
+                    currentUserAsTeacher.getSubjects().get(registrationSubjectIndex).setCategoryList(categoryArrayList);
+                }
+
+                registrationData.accounts.set(currentUserAsTeacherIndex, currentUserAsTeacher);
+                MainActivity.dbConnection.setRegistrationData(registrationData);
+                MainActivity.dbConnection.completeRegistration();
+                FirebaseDBConnection.updateDatabase();
+
+                RegisterAddClassesAndSubjectsActivity.subjectSelectionArrayList.get(selectedSubjectIndex).setSelected(true);
+                finish();
+            }
+        });
 
         addCategoryFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +162,29 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         });
     }
 
+    private void submitData(Data registrationData) {
+        registrationData.subjects.get(selectedSubjectIndex).setName(subjectName.getText().toString());
+        registrationData.subjects.get(selectedSubjectIndex).setCode(subjectCode.getText().toString());
+        registrationData.subjects.get(selectedSubjectIndex).setCategoryList(categoryArrayList);
+        MainActivity.dbConnection.setRegistrationData(registrationData);
+        MainActivity.dbConnection.completeRegistration();
+        FirebaseDBConnection.updateDatabase();
+    }
+
     public void updateRecycler() {
         categoryArrayList = MainActivity.dbConnection.getRegistrationData().subjects.get(selectedSubjectIndex).getCategoryList();
         RecyclerView recyclerView = findViewById(R.id.category_recyle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CategoryRegisterRecyclerAdapter(this, categoryArrayList, this));
 
+        ArrayList<CategorySelection> categorySelectionArrayList = new ArrayList<>();
+
+        for (Category category:
+             categoryArrayList) {
+            categorySelectionArrayList.add(new CategorySelection(category, false));
+        }
+
+        categorySelectionRecyclerAdapterInstance = new CategorySelectionRecyclerAdapter(this, categorySelectionArrayList, this);
+        recyclerView.setAdapter(categorySelectionRecyclerAdapterInstance);
     }
 
     //    public ArrayList<Category> getCategoryArrayList() {
@@ -193,6 +281,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
                 MainActivity.dbConnection.setRegistrationData(data);
                 MainActivity.dbConnection.completeRegistration();
                 FirebaseDBConnection.updateDatabase();
+//                categoryArrayList = MainActivity.dbConnection.getRegistrationData().subjects.get(selectedSubjectIndex).getCategoryList();
 //                Intent intent = new Intent(getApplicationContext(), RegisterAddClassesAndSubjectsActivity.class);
 //
 //                startActivity(intent);

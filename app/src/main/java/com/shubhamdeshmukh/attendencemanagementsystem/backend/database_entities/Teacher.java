@@ -32,6 +32,10 @@ public class Teacher extends Account {
         this.subjects.add(subject);
     }
 
+    public void setSubjects(ArrayList<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
     public String printInfo()
     {
         return "Name: " + this.getName() + " Subjects: " + this.subjects;
