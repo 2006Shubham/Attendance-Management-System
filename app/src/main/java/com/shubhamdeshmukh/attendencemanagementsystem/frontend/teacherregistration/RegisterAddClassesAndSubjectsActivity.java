@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
 
 
-    public ArrayList<ClassSelection> classSelectionArrayList;
+    public static ArrayList<ClassSelection> classSelectionArrayList;
     public static ArrayList<SubjectSelection> subjectSelectionArrayList;
 
     private SubjectSelectionRecyclerAdapter subjectSelectionRecyclerAdapter;
