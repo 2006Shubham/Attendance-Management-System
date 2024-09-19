@@ -23,6 +23,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnecti
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
@@ -55,7 +56,9 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         if (selectedClassIndex == -1) {
 
             Data registrationData = MainActivity.dbConnection.getRegistrationData();
-            registrationData.classes.add(new Class());
+            Class _class = new Class();
+            RegisterAddClassesAndSubjectsActivity.classSelectionArrayList.add(new ClassSelection(_class, false));
+            registrationData.classes.add(_class);
             selectedClassIndex = registrationData.classes.size() - 1;
             batchArrayList  = new ArrayList<>();
 
@@ -93,6 +96,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
                 registrationData.classes.get(selectedClassIndex).setName(className.getText().toString());
                 registrationData.classes.get(selectedClassIndex).setBatchList(batchArrayList);
                 registrationData.batches.addAll(batchArrayList);
+                RegisterAddClassesAndSubjectsActivity.classSelectionArrayList.set(selectedClassIndex, new ClassSelection(registrationData.classes.get(selectedClassIndex), true));
                 MainActivity.dbConnection.setRegistrationData(registrationData);
                 MainActivity.dbConnection.completeRegistration();
                 FirebaseDBConnection.updateDatabase();

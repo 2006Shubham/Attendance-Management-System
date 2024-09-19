@@ -69,8 +69,8 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
             }
         });
 
-        Intent intent = new Intent(context, AttendanceViewActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        Intent intent = new Intent(context, AttendanceViewActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         ArrayList<Batch> batchArrayList =  classSelectionArrayList.get(position).getThisClass().getBatchList();
 
@@ -101,22 +101,32 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
             @Override
             public void onClick(View view) {
-                if (classSelectionArrayList.get(holder.getBindingAdapterPosition()).getThisClass().getBatchList().isEmpty())
+                if (context instanceof RegisterAddClassesAndSubjectsActivity)
                 {
-                    currentExpandedPosition = holder.getBindingAdapterPosition();
-//                    context.startActivity(intent);
-                   // ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
+                    Intent intent = new Intent(context, RegisterClassInfoAndBatchesActivity.class);
+                    intent.putExtra("classFetchedDataIndex", holder.getBindingAdapterPosition());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
                 else
                 {
-                    if (ClassSelectionRecyclerAdapter.currentExpandedPosition == holder.getBindingAdapterPosition())
+                    if (classSelectionArrayList.get(holder.getBindingAdapterPosition()).getThisClass().getBatchList().isEmpty())
                     {
-                        ClassSelectionRecyclerAdapter.currentExpandedPosition = -1;
+                        currentExpandedPosition = holder.getBindingAdapterPosition();
+//                    context.startActivity(intent);
+                        // ClassSelectionRecyclerAdapter.callAttendanceViewActivityWithBatch(-1);
                     }
-                    else {
-                        ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getBindingAdapterPosition();
+                    else
+                    {
+                        if (ClassSelectionRecyclerAdapter.currentExpandedPosition == holder.getBindingAdapterPosition())
+                        {
+                            ClassSelectionRecyclerAdapter.currentExpandedPosition = -1;
+                        }
+                        else {
+                            ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getBindingAdapterPosition();
+                        }
+                        notifyDataSetChanged();
                     }
-                    notifyDataSetChanged();
                 }
             }
         });
