@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.single.SubjectRecyclerAdapter;
 
 import java.util.ArrayList;
 

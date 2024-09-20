@@ -11,22 +11,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.shubhamdeshmukh.attendencemanagementsystem.R;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.other_entities.Account;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Attendance;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Monitor;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.StudentStatus;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.other_entities.Account;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 public class FirebaseDBConnection {

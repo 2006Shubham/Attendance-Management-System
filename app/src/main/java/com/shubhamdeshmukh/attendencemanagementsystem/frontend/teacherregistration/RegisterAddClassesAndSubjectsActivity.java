@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Teacher;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.list.ClassRecyclerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single.SubjectSelectionRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
     public static ArrayList<SubjectSelection> subjectSelectionArrayList;
 
     private SubjectSelectionRecyclerAdapter subjectSelectionRecyclerAdapter;
-    private ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter;
+    private ClassRecyclerAdapter classRecyclerAdapter;
 
     private boolean toggle = false;
 
@@ -74,8 +74,8 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
             subjectSelectionArrayList.add(new SubjectSelection(subject, false));
         }
 
-        classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(this, classSelectionArrayList);
-        classRecyclerView.setAdapter(classSelectionRecyclerAdapter);
+        classRecyclerAdapter = new ClassRecyclerAdapter(this, classSelectionArrayList);
+        classRecyclerView.setAdapter(classRecyclerAdapter);
         SubjectSelectionRecyclerAdapter subjectSelectionAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionArrayList);
         subjectRecyclerView.setAdapter(subjectSelectionAdapter);
 
@@ -129,8 +129,8 @@ public class RegisterAddClassesAndSubjectsActivity extends AppCompatActivity {
         classRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(this, classSelectionArrayList);
-        classRecyclerView.setAdapter(classSelectionRecyclerAdapter);
+        classRecyclerAdapter = new ClassRecyclerAdapter(this, classSelectionArrayList);
+        classRecyclerView.setAdapter(classRecyclerAdapter);
 
         subjectSelectionRecyclerAdapter = new SubjectSelectionRecyclerAdapter(this, subjectSelectionArrayList);
         subjectRecyclerView.setAdapter(subjectSelectionRecyclerAdapter);

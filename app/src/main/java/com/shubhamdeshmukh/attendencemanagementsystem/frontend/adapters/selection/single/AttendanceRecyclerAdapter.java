@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,7 +20,7 @@ public class AttendanceRecyclerAdapter extends RecyclerView.Adapter<AttendanceRe
     Context context;
     ArrayList<StudentStatus> studentStatusList;
 
-    AttendanceRecyclerAdapter(ArrayList<StudentStatus> studentStatusList, Context context) {
+    public AttendanceRecyclerAdapter(ArrayList<StudentStatus> studentStatusList, Context context) {
 
         this.studentStatusList = studentStatusList;
         this.context = context;

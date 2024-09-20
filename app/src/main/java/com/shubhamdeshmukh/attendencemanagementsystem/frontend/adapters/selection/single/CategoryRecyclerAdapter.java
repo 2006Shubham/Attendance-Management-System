@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.CategorySelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterSubjectInfoAndCategoryActivity;
 
 import java.util.ArrayList;
 
-public class CategorySelectionRecyclerAdapter extends RecyclerView.Adapter<CategorySelectionRecyclerAdapter.ViewHolder> {
+public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder> {
 
     Context context;
     private ArrayList<CategorySelection> categorySelectionArrayList;
 
     RegisterSubjectInfoAndCategoryActivity parent;
 
-    CategorySelectionRecyclerAdapter(Context context, ArrayList<CategorySelection> categorySelectionArrayList, RegisterSubjectInfoAndCategoryActivity parent){
+    public CategoryRecyclerAdapter(Context context, ArrayList<CategorySelection> categorySelectionArrayList, RegisterSubjectInfoAndCategoryActivity parent){
 
         this.context = context;
         this.categorySelectionArrayList = categorySelectionArrayList;

@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,14 +17,14 @@ import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
 
 import java.util.ArrayList;
 
-public class BatchSelectionRecyclerAdapter extends RecyclerView.Adapter<BatchSelectionRecyclerAdapter.ViewHolder> {
+public class BatchRecyclerAdapter extends RecyclerView.Adapter<BatchRecyclerAdapter.ViewHolder> {
 
     Context context;
     ArrayList<BatchSelection> batchSelectionArrayList;
 
 //    RegisterClassInfoAndBatchesActivity parent;
 
-    BatchSelectionRecyclerAdapter(Context context, ArrayList<BatchSelection> batchSelectionArrayList){
+    public BatchRecyclerAdapter(Context context, ArrayList<BatchSelection> batchSelectionArrayList){
 
         this.context = context;
         this.batchSelectionArrayList = batchSelectionArrayList;
@@ -36,7 +36,7 @@ public class BatchSelectionRecyclerAdapter extends RecyclerView.Adapter<BatchSel
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-       View v  =  LayoutInflater.from(context).inflate(R.layout.layout_class_and_subject_category_register_recycler,parent,false);
+       View v  =  LayoutInflater.from(context).inflate(R.layout.layout_batch_list_recycler,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
         return  viewHolder;
 

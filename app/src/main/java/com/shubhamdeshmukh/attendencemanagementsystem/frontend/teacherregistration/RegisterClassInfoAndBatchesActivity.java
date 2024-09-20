@@ -25,6 +25,7 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.single.BatchRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
     ArrayList<Batch> batchArrayList;
     int selectedClassIndex;
 
-    BatchRegisterRecyclerAdapter currentAdapter;
+    BatchRecyclerAdapter currentAdapter;
 
 
     @Override
@@ -75,7 +76,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        currentAdapter = new BatchRegisterRecyclerAdapter(batchArrayList, this);
+        currentAdapter = new BatchRecyclerAdapter(batchArrayList, this);
         recyclerView.setAdapter(currentAdapter);
 
 
@@ -110,7 +111,7 @@ public class RegisterClassInfoAndBatchesActivity extends AppCompatActivity {
     {
         RecyclerView recyclerView = findViewById(R.id.register_batch_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BatchRegisterRecyclerAdapter(batchArrayList, this));
+        recyclerView.setAdapter(new BatchRecyclerAdapter(batchArrayList, this));
     }
 
     public void showBatchInfoDialog(int selectedBatch) {

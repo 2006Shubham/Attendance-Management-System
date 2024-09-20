@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterSubjectInfoAndCategoryActivity;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class SubjectSelectionRecyclerAdapter extends RecyclerView.Adapter<Subjec
     Context context;
     ArrayList<SubjectSelection> subjectSelectionArrayList;
 
-    SubjectSelectionRecyclerAdapter(Context context, ArrayList<SubjectSelection> subjectSelectionArrayList){
+    public SubjectSelectionRecyclerAdapter(Context context, ArrayList<SubjectSelection> subjectSelectionArrayList){
 
         this.context = context;
         this.subjectSelectionArrayList = subjectSelectionArrayList;

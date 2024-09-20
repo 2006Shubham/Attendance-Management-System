@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,17 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.list.ClassRecyclerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionActivity;
 
 import java.util.ArrayList;
 
-public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<CategorySelectionRecylerAdapter.ViewHolder> {
+public class CategoryRecylerAdapter extends RecyclerView.Adapter<CategoryRecylerAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Category>categoryarrayList;
 
     static int currentExpandedPosition = -1;
 
-    CategorySelectionRecylerAdapter(Context context , ArrayList<Category> categoryarrayList){
+    public CategoryRecylerAdapter(Context context, ArrayList<Category> categoryarrayList){
 
         this.categoryarrayList = categoryarrayList;
         this.context = context;
@@ -49,9 +53,16 @@ public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<Catego
         holder.categoryName.setText(categoryarrayList.get(position).getName());
 
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(new ClassSelectionRecyclerAdapter(context,categoryarrayList.get(position).getClassList()));
 
-        if (CategorySelectionRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
+        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
+
+        for (Class _class:
+                categoryarrayList.get(position).getClassList()) {
+            classSelectionArrayList.add(new ClassSelection(_class, false));
+        }
+        holder.recyclerView.setAdapter(new ClassRecyclerAdapter(context, classSelectionArrayList));
+
+        if (CategoryRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
             holder.innerclassLayout.setVisibility(View.VISIBLE);
         else
             holder.innerclassLayout.setVisibility(View.GONE);
@@ -60,13 +71,13 @@ public class CategorySelectionRecylerAdapter extends RecyclerView.Adapter<Catego
 
             @Override
             public void onClick(View view) {
-                if (CategorySelectionRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
+                if (CategoryRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
                 {
-                    CategorySelectionRecylerAdapter.currentExpandedPosition = -1;
+                    CategoryRecylerAdapter.currentExpandedPosition = -1;
                 }
                 else
                 {
-                    CategorySelectionRecylerAdapter.currentExpandedPosition = holder.getAdapterPosition();
+                    CategoryRecylerAdapter.currentExpandedPosition = holder.getAdapterPosition();
                 }
                 notifyDataSetChanged();
             }

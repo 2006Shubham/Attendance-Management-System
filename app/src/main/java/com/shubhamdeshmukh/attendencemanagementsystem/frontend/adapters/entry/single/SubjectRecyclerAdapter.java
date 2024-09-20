@@ -1,8 +1,7 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.single;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionActivity;
 
 import java.util.ArrayList;
 
@@ -29,8 +29,7 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
     @NonNull
     @Override
     public SubjectRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View v =  LayoutInflater.from(context).inflate(R.layout.layout_subject_portal_recycler,parent,false);
-       ViewHolder viewHolder  = new ViewHolder(v);
+       ViewHolder viewHolder  = new ViewHolder(parent);
        return viewHolder;
 
     }

@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,16 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
-import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.BatchSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.AttendanceViewActivity;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionRecylerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single.BatchRecyclerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list.CategoryRecylerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterAddClassesAndSubjectsActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterClassInfoAndBatchesActivity;
 
 import java.util.ArrayList;
 
-public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSelectionRecyclerAdapter.ViewHolder> {
+public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
 
     ArrayList<ClassSelection> classSelectionArrayList;
 
@@ -33,7 +34,7 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
 
     static int currentExpandedPosition = -1;
 
-    public ClassSelectionRecyclerAdapter(Context context, ArrayList<ClassSelection> classSelectionArrayList){
+    public ClassRecyclerAdapter(Context context, ArrayList<ClassSelection> classSelectionArrayList){
 
         this.classSelectionArrayList = classSelectionArrayList;
         this.context = context;
@@ -42,7 +43,7 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
     }
 
     public static void callAttendanceViewActivityWithBatch(int batchIndex) {
-        CategorySelectionRecylerAdapter.callAttendanceViewActivityWithClass(currentExpandedPosition, batchIndex); // Sending Current Class Index & Batch Index
+        CategoryRecylerAdapter.callAttendanceViewActivityWithClass(currentExpandedPosition, batchIndex); // Sending Current Class Index & Batch Index
     }
 
     @NonNull
@@ -81,12 +82,12 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
         }
 
         holder.batchlist_recycler.setLayoutManager(new LinearLayoutManager(context));
-        holder.batchlist_recycler.setAdapter(new BatchSelectionRecyclerAdapter(context, classSelectionArrayList.get(position).getBatchSelectionArrayList()));
+        holder.batchlist_recycler.setAdapter(new BatchRecyclerAdapter(context, classSelectionArrayList.get(position).getBatchSelectionArrayList()));
 
         Log.d(MainActivity.TAG, "onBindViewHolder: Batch: " + classSelectionArrayList.get(position).getThisClass().getBatchList());
 
 
-        if (ClassSelectionRecyclerAdapter.currentExpandedPosition == position)
+        if (ClassRecyclerAdapter.currentExpandedPosition == position)
         {
             holder.batch_card.setVisibility(View.VISIBLE);
 
@@ -118,12 +119,12 @@ public class ClassSelectionRecyclerAdapter extends RecyclerView.Adapter<ClassSel
                     }
                     else
                     {
-                        if (ClassSelectionRecyclerAdapter.currentExpandedPosition == holder.getBindingAdapterPosition())
+                        if (ClassRecyclerAdapter.currentExpandedPosition == holder.getBindingAdapterPosition())
                         {
-                            ClassSelectionRecyclerAdapter.currentExpandedPosition = -1;
+                            ClassRecyclerAdapter.currentExpandedPosition = -1;
                         }
                         else {
-                            ClassSelectionRecyclerAdapter.currentExpandedPosition = holder.getBindingAdapterPosition();
+                            ClassRecyclerAdapter.currentExpandedPosition = holder.getBindingAdapterPosition();
                         }
                         notifyDataSetChanged();
                     }

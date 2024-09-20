@@ -30,13 +30,15 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.CategorySel
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.SubjectSelection;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.list.ClassRecyclerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single.CategoryRecyclerAdapter;
 
 import java.util.ArrayList;
 
 public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
 
     ArrayList<Category> categoryArrayList;
-    CategorySelectionRecyclerAdapter categorySelectionRecyclerAdapterInstance;
+    CategoryRecyclerAdapter categoryRecyclerAdapterInstance;
 
     int selectedSubjectIndex;
     int registrationSubjectIndex;
@@ -90,7 +92,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         submitData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<CategorySelection> categorySelectionArrayList = categorySelectionRecyclerAdapterInstance.getCategorySelectionArrayList();
+                ArrayList<CategorySelection> categorySelectionArrayList = categoryRecyclerAdapterInstance.getCategorySelectionArrayList();
                 categoryArrayList = new ArrayList<>();
 
                 for (CategorySelection categorySelection:
@@ -107,7 +109,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         submitSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<CategorySelection> categorySelectionArrayList = categorySelectionRecyclerAdapterInstance.getCategorySelectionArrayList();
+                ArrayList<CategorySelection> categorySelectionArrayList = categoryRecyclerAdapterInstance.getCategorySelectionArrayList();
                 categoryArrayList = new ArrayList<>();
 
                 for (CategorySelection categorySelection:
@@ -183,8 +185,8 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             categorySelectionArrayList.add(new CategorySelection(category, false));
         }
 
-        categorySelectionRecyclerAdapterInstance = new CategorySelectionRecyclerAdapter(this, categorySelectionArrayList, this);
-        recyclerView.setAdapter(categorySelectionRecyclerAdapterInstance);
+        categoryRecyclerAdapterInstance = new CategoryRecyclerAdapter(this, categorySelectionArrayList, this);
+        recyclerView.setAdapter(categoryRecyclerAdapterInstance);
     }
 
     //    public ArrayList<Category> getCategoryArrayList() {
@@ -231,8 +233,8 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             classList = categoryArrayList.get(selectedCategoryIndex).getClassList();
         }
 
-        ClassSelectionRecyclerAdapter classSelectionRecyclerAdapter = new ClassSelectionRecyclerAdapter(getApplicationContext(), classSelectionArrayList);
-        recyclerView.setAdapter(classSelectionRecyclerAdapter);
+        ClassRecyclerAdapter classRecyclerAdapter = new ClassRecyclerAdapter(getApplicationContext(), classSelectionArrayList);
+        recyclerView.setAdapter(classRecyclerAdapter);
 
         // Set an OnClickListener for the Submit button
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +242,7 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle button click event
 
-                ArrayList<ClassSelection> classSelectionArrayList1 = classSelectionRecyclerAdapter.getClassSelectionArrayList();
+                ArrayList<ClassSelection> classSelectionArrayList1 = classRecyclerAdapter.getClassSelectionArrayList();
                 
                 ArrayList<Class> classArrayList = new ArrayList<>();
 

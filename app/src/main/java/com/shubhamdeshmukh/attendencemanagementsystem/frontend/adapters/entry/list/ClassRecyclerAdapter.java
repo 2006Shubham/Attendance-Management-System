@@ -1,7 +1,6 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,12 @@ import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.
 
 import java.util.ArrayList;
 
-public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegisterRecyclerAdapter.ViewHolder> {
+public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
 
     ArrayList<Class> classes;
     Context context;
 
-    ClassRegisterRecyclerAdapter(Context context, ArrayList<Class> classes){
+    ClassRecyclerAdapter(Context context, ArrayList<Class> classes){
 
         this.context = context;
         this.classes = classes;
@@ -31,8 +30,8 @@ public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegi
 
     @NonNull
     @Override
-    public ClassRegisterRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_class_and_subject_category_register_recycler, parent, false);
+    public ClassRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_class_list_recycler, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -40,18 +39,18 @@ public class ClassRegisterRecyclerAdapter extends RecyclerView.Adapter<ClassRegi
 
 
     @Override
-    public void onBindViewHolder(@NonNull ClassRegisterRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ClassRecyclerAdapter.ViewHolder holder, int position) {
 
         holder.textView.setText(classes.get(position).getName());
 
-        holder.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, RegisterClassInfoAndBatchesActivity.class);
-                intent.putExtra("classFetchedDataIndex", holder.getBindingAdapterPosition());
-                context.startActivity(intent);
-            }
-        });
+//        holder.textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, RegisterClassInfoAndBatchesActivity.class);
+//                intent.putExtra("classFetchedDataIndex", holder.getBindingAdapterPosition());
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override

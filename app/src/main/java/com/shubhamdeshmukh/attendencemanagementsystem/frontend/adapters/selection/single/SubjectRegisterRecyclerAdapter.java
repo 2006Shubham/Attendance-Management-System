@@ -1,8 +1,7 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.single;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Subject;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterSubjectInfoAndCategoryActivity;
 
 import java.util.ArrayList;
 
@@ -32,9 +32,8 @@ public class SubjectRegisterRecyclerAdapter extends RecyclerView.Adapter<Subject
     @Override
     public SubjectRegisterRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_class_and_subject_category_register_recycler,parent,false);
 
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(parent);
 
 
         return viewHolder;

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.MainActivity;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list.CategoryRecylerAdapter;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.single.SubjectRecyclerAdapter;
 
 public class CategorySelectionActivity extends AppCompatActivity {
 
@@ -58,9 +60,9 @@ public class CategorySelectionActivity extends AppCompatActivity {
         RecyclerView categoryrecycler = findViewById(R.id.categoryrecycler);
         categoryrecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        CategorySelectionRecylerAdapter categorySelectionRecylerAdapter = new CategorySelectionRecylerAdapter(this,SubjectRecyclerAdapter.getSubjects_array_list().get(this.currentSubjectIndex).getCategoryList());
+        CategoryRecylerAdapter categoryRecylerAdapter = new  CategoryRecylerAdapter(this, SubjectRecyclerAdapter.getSubjects_array_list().get(this.currentSubjectIndex).getCategoryList());
 
-        categoryrecycler.setAdapter(categorySelectionRecylerAdapter);
+        categoryrecycler.setAdapter(categoryRecylerAdapter);
         Log.d(MainActivity.TAG, "onCreate: SUBJECT: " + SubjectRecyclerAdapter.getSubjects_array_list().get(currentSubjectIndex).getCategoryList().toString());
 
 
