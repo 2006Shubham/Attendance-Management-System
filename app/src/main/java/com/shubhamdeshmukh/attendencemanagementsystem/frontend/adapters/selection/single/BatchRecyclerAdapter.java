@@ -80,7 +80,7 @@ public class BatchRecyclerAdapter extends RecyclerView.Adapter<BatchRecyclerAdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            batch_name  = itemView.findViewById(R.id.name);
+            batch_name  = itemView.findViewById(R.id.batchname);
             checkBox = itemView.findViewById(R.id.checkbox);
         }
     }

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.FirebaseDBConnection;
+import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Data;
@@ -211,7 +212,13 @@ public class RegisterSubjectInfoAndCategoryActivity extends AppCompatActivity {
         ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
         for (Class _class:
              classList) {
-            classSelectionArrayList.add(new ClassSelection(_class, false, new ArrayList<BatchSelection>()));
+            ArrayList<BatchSelection> batchSelectionArrayList = new ArrayList<>();
+
+            for (Batch batch:
+                 _class.getBatchList()) {
+                batchSelectionArrayList.add(new BatchSelection(batch, false));
+            }
+            classSelectionArrayList.add(new ClassSelection(_class, false, batchSelectionArrayList));
         }
 
 
