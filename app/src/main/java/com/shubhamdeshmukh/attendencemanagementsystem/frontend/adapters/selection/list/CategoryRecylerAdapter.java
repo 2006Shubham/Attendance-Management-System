@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list;
+package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.selection.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +16,6 @@ import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Category;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Class;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.models.ClassSelection;
-import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list.ClassRecyclerAdapter;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacher.CategorySelectionActivity;
 
 import java.util.ArrayList;
@@ -54,7 +53,13 @@ public class CategoryRecylerAdapter extends RecyclerView.Adapter<CategoryRecyler
 
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        holder.recyclerView.setAdapter(new ClassRecyclerAdapter(context, categoryarrayList.get(position).getClassList()));
+        ArrayList<ClassSelection> classSelectionArrayList = new ArrayList<>();
+
+        for (Class _class:
+                categoryarrayList.get(position).getClassList()) {
+            classSelectionArrayList.add(new ClassSelection(_class, false));
+        }
+        holder.recyclerView.setAdapter(new ClassRecyclerAdapter(context, classSelectionArrayList));
 
         if (CategoryRecylerAdapter.currentExpandedPosition == holder.getAdapterPosition())
             holder.innerclassLayout.setVisibility(View.VISIBLE);

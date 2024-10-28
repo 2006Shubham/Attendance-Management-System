@@ -42,10 +42,6 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
     }
 
-    public static void callAttendanceViewActivityWithBatch(int batchIndex) {
-        CategoryRecylerAdapter.callAttendanceViewActivityWithClass(currentExpandedPosition, batchIndex); // Sending Current Class Index & Batch Index
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

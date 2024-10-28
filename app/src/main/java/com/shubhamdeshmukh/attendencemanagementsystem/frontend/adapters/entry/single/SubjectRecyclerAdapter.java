@@ -2,6 +2,7 @@ package com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.s
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -29,7 +30,9 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter<SubjectRecycler
     @NonNull
     @Override
     public SubjectRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       ViewHolder viewHolder  = new ViewHolder(parent);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_subject_portal_recycler, parent, false);
+
+        ViewHolder viewHolder  = new ViewHolder(view);
        return viewHolder;
 
     }

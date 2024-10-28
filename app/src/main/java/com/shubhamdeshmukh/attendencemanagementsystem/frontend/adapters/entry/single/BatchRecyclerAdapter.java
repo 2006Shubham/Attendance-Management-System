@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shubhamdeshmukh.attendencemanagementsystem.R;
 import com.shubhamdeshmukh.attendencemanagementsystem.backend.database_entities.Batch;
+import com.shubhamdeshmukh.attendencemanagementsystem.frontend.adapters.entry.list.ClassRecyclerAdapter;
 import com.shubhamdeshmukh.attendencemanagementsystem.frontend.teacherregistration.RegisterClassInfoAndBatchesActivity;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class BatchRecyclerAdapter extends RecyclerView.Adapter<BatchRecyclerAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v =  LayoutInflater.from(context).inflate(R.layout.layout_batch_list_recycler,parent,false);
+        View v =  LayoutInflater.from(context).inflate(R.layout.layout_register_batch_recycler,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -57,6 +58,9 @@ public class BatchRecyclerAdapter extends RecyclerView.Adapter<BatchRecyclerAdap
                 if (context instanceof RegisterClassInfoAndBatchesActivity)
                 {
                     ((RegisterClassInfoAndBatchesActivity) context).showBatchInfoDialog(holder.getAdapterPosition());
+                }
+                else {
+                    ClassRecyclerAdapter.callAttendanceViewActivityWithBatch(holder.getBindingAdapterPosition());
                 }
             }
         });
