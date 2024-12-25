@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent">
+     android:layout_width="match_parent"
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_gravity="center"
-        android:id="@+id/login"
+        android:id="@+id/signUp"
         android:background="#F6EDF6"
         tools:context=".LoginActivity">
 
@@ -22,7 +22,7 @@
             android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Sign Up"
             android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -71,17 +71,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Login"
+            android:text="Sign Up"
             android:backgroundTint="#77559A"
             android:textColor="#FFFFFF"
             android:paddingHorizontal="32dp" />
 
         <!-- Sign Up Text -->
         <TextView
-            android:id="@+id/signUpText"
+            android:id="@+id/signInText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don’t have an account?\nSign Up instead"
+            android:text="Already have an account?\nSign in instead"
             android:gravity="center"
             android:textColor="#000000"
             android:lineSpacingExtra="4dp"
