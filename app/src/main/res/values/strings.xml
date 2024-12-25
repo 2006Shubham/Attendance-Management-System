@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">Attendence Management System</string>
+    <string name="app_name">NewAttendanceManagement</string>
+    <string name="OpenDrawer">Open Drawer</string>
+    <string name="CloseDrawer">Close Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- App Name -->
+
+    <!-- Toolbar -->
+    <string name="toolbar_title">Schedule</string>
+
+    <!-- Spinner -->
+    <string name="select_subject">Select the Subject</string>
+
+    <!-- Card Titles -->
+    <string name="practical">Practical</string>
+    <string name="lecture">Lecture</string>
+
+    <!-- Button -->
+    <string name="preview_schedule">Preview the schedule</string>
+
+    <!-- Subject Array (Spinner Items) -->
+    <string-array name="subject_array">
+        <item>Select Subject</item>
+        <item>Mathematics</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+    </string-array>
+
+    <string-array name="class_array">
+        <item>Select Class</item>
+        <item>CO-TY</item>
+        <item>CO-SY</item>
+        <item>AN-FY</item>
+        <item>AN-TY</item>
+    </string-array>
+
+
 </resources>

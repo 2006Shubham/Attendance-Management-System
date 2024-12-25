@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".flow2fragments.SubjectFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50sp"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/subject1"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                android:layout_height="80sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="192sp"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_height="48sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Class 1"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="CO-TY"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:cardUseCompatPadding="true"
+                        android:backgroundTint="@color/black"
+                        android:layout_height="80sp"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/subject2"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                android:layout_height="80sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="192sp"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_height="48sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Class 2"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="CO-SY"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:cardUseCompatPadding="true"
+                        android:backgroundTint="@color/black"
+                        android:layout_height="80sp"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/subject3"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                android:layout_height="80sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="192sp"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_height="48sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Class 3"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="AN-TY"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:cardUseCompatPadding="true"
+                        android:backgroundTint="@color/black"
+                        android:layout_height="80sp"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/subject4"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                android:layout_height="80sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="192sp"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_height="48sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Class 4"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="AN-SY"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:cardUseCompatPadding="true"
+                        android:backgroundTint="@color/black"
+                        android:layout_height="80sp"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/subject5"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                android:layout_height="80sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="192sp"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_height="48sp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Class 5"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="AN-FY"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:cardUseCompatPadding="true"
+                        android:backgroundTint="@color/black"
+                        android:layout_height="80sp"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="80sp"
+                android:id="@+id/subject6"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                app:cardUseCompatPadding="true" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="80sp"
+                android:id="@+id/subject7"
+                android:layout_marginTop="21sp"
+                android:layout_marginHorizontal="10sp"
+                app:cardUseCompatPadding="true" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</ScrollView>
+
+
+

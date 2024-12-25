@@ -1,15 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-    namespace = "com.shubhamdeshmukh.attendencemanagementsystem"
+    namespace = "com.shubhamdeshmukh.newattendancemanagement"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.shubhamdeshmukh.attendencemanagementsystem"
-        minSdk = 24
+        applicationId = "com.shubhamdeshmukh.newattendancemanagement"
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -30,9 +29,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -41,12 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.auth)
-    implementation(libs.annotation)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.recyclerview)
+    implementation(libs.coordinatorlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
