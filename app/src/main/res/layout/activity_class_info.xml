@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".flow1activity.SubjectInfoActivity">
+    tools:context=".flow2activity.ClassInfoActivity">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:orientation="vertical"
-          android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="35sp"
@@ -20,94 +20,94 @@
             android:id="@+id/back"
             android:layout_marginLeft="25dp"
             android:layout_height="35sp"
-        />
-      </LinearLayout>
+            />
+    </LinearLayout>
 
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:orientation="vertical"
-          android:layout_marginTop="30dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
 
-          android:layout_height="wrap_content">
+        android:layout_height="wrap_content">
 
-          <TextView
-              android:layout_width="match_parent"
-              android:text="Subject Info"
-              android:gravity="center"
-              android:textSize="40sp"
-              android:layout_height="wrap_content"/>
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:orientation="vertical"
-              android:layout_marginTop="30dp"
-              android:layout_height="match_parent">
-
-
-              <com.google.android.material.textfield.TextInputLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginHorizontal="24dp"
-                  android:layout_marginBottom="16dp"
-                  app:boxStrokeColor="#77559A"
-                  app:boxBackgroundMode="outline">
-
-                  <com.google.android.material.textfield.TextInputEditText
-                      android:id="@+id/subjectName"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:hint="Subject Name"
-                      android:textColor="#000000"
-                      android:textColorHint="#77559A" />
-              </com.google.android.material.textfield.TextInputLayout>
-
-
-              <com.google.android.material.textfield.TextInputLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginHorizontal="24dp"
-                  android:layout_marginBottom="16dp"
-
-                  app:boxStrokeColor="#77559A"
-                  app:boxBackgroundMode="outline">
-
-                  <com.google.android.material.textfield.TextInputEditText
-                      android:id="@+id/subjectCode"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:hint="Subject Code"
-                      android:textColor="#000000"
-                      android:textColorHint="#77559A" />
-              </com.google.android.material.textfield.TextInputLayout>
-
-
-          </LinearLayout>
-
-
-
-      </LinearLayout>
-
-
-
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Class Info"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="30dp"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="#77559A"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/subjectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Class Name"
+                    android:textColor="#000000"
+                    android:textColorHint="#77559A" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+
+                app:boxStrokeColor="#77559A"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/subjectCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Year"
+                    android:textColor="#000000"
+                    android:textColorHint="#77559A" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="Batches"
+            android:layout_height="wrap_content"/>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="40sp"
-                android:gravity="center"
-                android:text="Categories"
-                android:layout_height="wrap_content"/>
-
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Practical"
+                                android:text="A"
                                 android:textStyle="bold"
                                 android:textSize="20sp" />
 
@@ -190,7 +190,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Practical"
+                                android:text="B"
                                 android:textStyle="bold"
                                 android:textSize="20sp" />
 
@@ -212,42 +212,42 @@
 
             </LinearLayout>
 
-            </ScrollView>
+        </ScrollView>
 
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="20sp"
-            android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20sp"
+        android:layout_height="wrap_content">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:id="@+id/addCategory"
-                android:layout_centerVertical="true"
-                android:src="@drawable/baseline_add_24"
-                android:layout_height="wrap_content"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:id="@+id/addBatch"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_add_24"
+            android:layout_height="wrap_content"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:text="Done"
-                android:id="@+id/doneButton"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_height="wrap_content"/>
-
-
-
-        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Done"
+            android:id="@+id/doneButton"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"/>
 
 
-  </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

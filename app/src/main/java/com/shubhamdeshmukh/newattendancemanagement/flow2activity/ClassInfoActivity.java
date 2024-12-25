@@ -1,4 +1,4 @@
-package com.shubhamdeshmukh.newattendancemanagement.flow1activity;
+package com.shubhamdeshmukh.newattendancemanagement.flow2activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,16 +16,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.newattendancemanagement.R;
 
-public class SubjectInfoActivity extends AppCompatActivity {
+public class ClassInfoActivity extends AppCompatActivity {
 
     ImageView backarrow;
+    Button button ;
+
     FloatingActionButton floatingActionButton;
-    Button doneButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_subject_info);
+        setContentView(R.layout.activity_class_info);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -33,9 +35,8 @@ public class SubjectInfoActivity extends AppCompatActivity {
         });
 
         backarrow = findViewById(R.id.back);
-        floatingActionButton = findViewById(R.id.addCategory);
-        doneButton = findViewById(R.id.doneButton);
-        
+        button = findViewById(R.id.doneButton);
+        floatingActionButton = findViewById(R.id.addBatch);
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,35 +44,32 @@ public class SubjectInfoActivity extends AppCompatActivity {
             }
         });
 
-        doneButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup();
+                showPopUp();
             }
         });
-        
-        
     }
 
-    private void showPopup() {
-
+    private void showPopUp() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.category_info_popup, null);
+        View dialogView = inflater.inflate(R.layout.batch_info_popup, null);
 
         // Set custom view to dialog
         builder.setView(dialogView);
 
         // Add actions if needed
-        Button closeButton = dialogView.findViewById(R.id.doneButton);
+        Button closeButton = dialogView.findViewById(R.id.submitButton);
 
         AlertDialog dialog = builder.create();
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -82,5 +80,4 @@ public class SubjectInfoActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
 }
