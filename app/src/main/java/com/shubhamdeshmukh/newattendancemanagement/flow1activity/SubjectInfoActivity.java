@@ -12,13 +12,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.newattendancemanagement.R;
+import com.shubhamdeshmukh.newattendancemanagement.adaptermodelclass.Category;
+import com.shubhamdeshmukh.newattendancemanagement.recycleradapters.CategoryAdapter;
+
+import java.util.ArrayList;
 
 public class SubjectInfoActivity extends AppCompatActivity {
 
     ImageView backarrow;
+
+    RecyclerView recyclerView;
+
+    CategoryAdapter categoryAdapter;
+
+    ArrayList<Category> categoryArrayList;
     FloatingActionButton floatingActionButton;
     Button doneButton;
     @Override
@@ -35,6 +47,24 @@ public class SubjectInfoActivity extends AppCompatActivity {
         backarrow = findViewById(R.id.back);
         floatingActionButton = findViewById(R.id.addCategory);
         doneButton = findViewById(R.id.doneButton);
+
+        recyclerView = findViewById(R.id.recyclerViewCategory);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        categoryArrayList = new ArrayList<>(); ;
+        categoryArrayList.add(new Category("Practical"));
+        categoryArrayList.add(new Category("Theory"));
+        categoryArrayList.add(new Category("Seminar"));
+        categoryArrayList.add(new Category("Seminar"));
+
+        categoryArrayList.add(new Category("Practical"));
+        categoryArrayList.add(new Category("Theory"));
+        categoryArrayList.add(new Category("Seminar"));
+        categoryArrayList.add(new Category("Seminar"));
+
+        categoryAdapter = new CategoryAdapter(categoryArrayList,this,null);
+        recyclerView.setAdapter(categoryAdapter);
+
         
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override

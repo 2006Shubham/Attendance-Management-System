@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,16 +13,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shubhamdeshmukh.newattendancemanagement.R;
+import com.shubhamdeshmukh.newattendancemanagement.adaptermodelclass.Batch;
+import com.shubhamdeshmukh.newattendancemanagement.recycleradapters.BatchAdapter;
+
+import java.util.ArrayList;
 
 public class ClassInfoActivity extends AppCompatActivity {
 
     ImageView backarrow;
     Button button ;
 
+    RecyclerView recyclerView;
+    BatchAdapter batchAdapter;
+    ArrayList<Batch>batchArrayList;
+
     FloatingActionButton floatingActionButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +47,29 @@ public class ClassInfoActivity extends AppCompatActivity {
             return insets;
         });
 
+       // checkBox.setVisibility(View.GONE);
+
         backarrow = findViewById(R.id.back);
         button = findViewById(R.id.doneButton);
+
+
+        recyclerView = findViewById(R.id.batchRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        batchArrayList = new ArrayList<>();
+
+        batchArrayList.add(new Batch("A"));
+        batchArrayList.add(new Batch("B"));
+        batchArrayList.add(new Batch("C"));
+        batchArrayList.add(new Batch("D"));
+        batchArrayList.add(new Batch("E"));
+
+
+        batchAdapter = new BatchAdapter(batchArrayList,this,false);
+        recyclerView.setAdapter(batchAdapter);
+
+
         floatingActionButton = findViewById(R.id.addBatch);
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
