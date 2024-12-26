@@ -13,6 +13,18 @@
         android:theme="@style/Theme.NewAttendanceManagement"
         tools:targetApi="31">
         <activity
+            android:name=".flow4activity.StudentListForAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".flow4activity.TakeAttendanceOverviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".flow3activity.SchedulePreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".flow3activity.YourLoadActivity"
+            android:exported="false" />
+        <activity
             android:name=".flow2activity.ClassInfoActivity"
             android:exported="false" />
         <activity

@@ -1,5 +1,6 @@
 package com.shubhamdeshmukh.newattendancemanagement.flow3fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.shubhamdeshmukh.newattendancemanagement.R;
+import com.shubhamdeshmukh.newattendancemanagement.flow3activity.SchedulePreviewActivity;
 
 
 public class ScheduleFragment extends Fragment {
 
 
     View card;
+    Button preViewButton;
+    Intent intent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,6 +35,15 @@ public class ScheduleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         
         card = view.findViewById(R.id.cat1);
+        preViewButton = view.findViewById(R.id.previewButton);
+        intent = new Intent(getActivity(), SchedulePreviewActivity.class);
+
+        preViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+            }
+        });
         
         card.setOnClickListener(new View.OnClickListener() {
             @Override
