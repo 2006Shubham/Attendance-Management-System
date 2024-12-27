@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "440175035692",
+    "firebase_url": "https://test001-yg7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "test001-yg7",
+    "storage_bucket": "test001-yg7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440175035692:android:c6d4f6dd4d15db88b19889",
+        "android_client_info": {
+          "package_name": "com.shubhamdeshmukh.newattendancemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440175035692-sd5j1e9qhhliui9ok5qe5u3i9uagplj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASDoKyW0xiAI_KyrYK_nvuUjE1PgWH58I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440175035692-sd5j1e9qhhliui9ok5qe5u3i9uagplj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440175035692:android:48d41be4cf523825b19889",
+        "android_client_info": {
+          "package_name": "com.shubhamdeshmukh.newattendancemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440175035692-sd5j1e9qhhliui9ok5qe5u3i9uagplj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASDoKyW0xiAI_KyrYK_nvuUjE1PgWH58I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440175035692-sd5j1e9qhhliui9ok5qe5u3i9uagplj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
