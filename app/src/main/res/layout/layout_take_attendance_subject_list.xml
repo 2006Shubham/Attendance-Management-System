@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    tools:context=".flow4fragments.TakeAttendanceFragment">-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        app:cardElevation="2dp"-->
+<!--        android:layout_height="match_parent">-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_height="match_parent">-->
+
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        app:cardUseCompatPadding="true"-->
+<!--                        android:layout_marginTop="21sp"-->
+<!--                        android:layout_marginHorizontal="10sp"-->
+<!--                        android:layout_height="80sp">-->
+
+<!--                        <RelativeLayout-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="match_parent">-->
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:src="@drawable/profile"-->
+<!--                                android:id="@+id/subjectImage"-->
+<!--                                android:layout_height="wrap_content"/>-->
+
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:text="Cloud Computing"-->
+<!--                                android:id="@+id/subjectName"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:layout_centerInParent="true"-->
+<!--                                android:textSize="20sp"-->
+<!--                                android:layout_height="wrap_content"/>-->
+
+
+<!--                        </RelativeLayout>-->
+
+<!--                    </androidx.cardview.widget.CardView>-->
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginHorizontal="15dp"-->
+<!--                        android:layout_marginVertical="15sp"-->
+<!--                        android:layout_height="wrap_content">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:orientation="vertical"-->
+
+<!--                            android:layout_height="match_parent">-->
+
+<!--                            <androidx.cardview.widget.CardView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_marginTop="20sp"-->
+<!--                                android:layout_marginHorizontal="15dp"-->
+<!--                                app:cardUseCompatPadding="true"-->
+<!--                                android:layout_height="39sp">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:text="Lecture"-->
+<!--                                    android:textStyle="bold"-->
+
+<!--                                    android:layout_gravity="center"-->
+<!--                                    android:textSize="16sp"-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:layout_height="wrap_content"/>-->
+
+<!--                            </androidx.cardview.widget.CardView>-->
+
+<!--                            <Spinner-->
+<!--                                android:id="@+id/subjectSpinner"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+
+<!--                                android:layout_marginHorizontal="16dp"-->
+<!--                                android:layout_marginTop="30dp"-->
+<!--                                android:padding="8dp"-->
+<!--                                android:entries="@array/class_array"-->
+<!--                                android:spinnerMode="dropdown"-->
+<!--                                android:popupBackground="@color/white"-->
+<!--                                android:background="@drawable/spinner_dropdown_background"-->
+<!--                                android:dropDownVerticalOffset="12dp"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintHorizontal_bias="0.5" />-->
+
+<!--                            <androidx.cardview.widget.CardView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_marginHorizontal="15dp"-->
+<!--                                android:layout_marginVertical="15dp"-->
+<!--                                android:layout_height="wrap_content">-->
+
+
+<!--                                <androidx.recyclerview.widget.RecyclerView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:id="@+id/batchRecyclerView"-->
+<!--                                    android:layout_height="match_parent">-->
+
+
+<!--                                </androidx.recyclerview.widget.RecyclerView>-->
+
+<!--                            </androidx.cardview.widget.CardView>-->
+
+
+<!--                            <Button android:layout_height="wrap_content"-->
+<!--                                android:text="Take Attendance"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:id="@+id/takeAttendance"-->
+<!--                                android:layout_marginBottom="10sp"-->
+<!--                                android:layout_width="wrap_content">-->
+
+
+<!--                            </Button>-->
+
+
+<!--                        </LinearLayout>-->
+
+<!--                    </androidx.cardview.widget.CardView>-->
+
+
+
+<!--                </LinearLayout>-->
+
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+
+<!--        </LinearLayout>-->
+
+
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--</LinearLayout>-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".flow4fragments.TakeAttendanceFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="2dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardUseCompatPadding="true"
+                        android:layout_marginTop="21sp"
+                        android:layout_marginHorizontal="10sp"
+                        android:layout_height="80sp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:src="@drawable/profile"
+                                android:id="@+id/subjectImage"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="Cloud Computing"
+                                android:id="@+id/subjectName"
+                                android:textStyle="bold"
+                                android:layout_centerInParent="true"
+                                android:textSize="20sp"
+                                android:layout_height="wrap_content"/>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginVertical="15sp"
+                        android:layout_width="match_parent">
+
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:orientation="vertical"
+
+                                                android:layout_height="match_parent">
+
+                                                <androidx.cardview.widget.CardView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_marginTop="20sp"
+                                                    android:layout_marginHorizontal="15dp"
+                                                    app:cardUseCompatPadding="true"
+                                                    android:layout_height="39sp">
+
+                                                    <TextView
+                                                        android:layout_width="match_parent"
+                                                        android:text="Lecture"
+                                                        android:textStyle="bold"
+                                                        android:layout_gravity="center"
+                                                        android:textSize="16sp"
+                                                        android:gravity="center"
+                                                        android:layout_height="wrap_content"/>
+
+                                                </androidx.cardview.widget.CardView>
+
+                                                <Spinner
+                                                    android:id="@+id/subjectSpinner"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:layout_marginHorizontal="16dp"
+                                                    android:layout_marginTop="30dp"
+                                                    android:padding="8dp"
+                                                    android:entries="@array/class_array"
+                                                    android:spinnerMode="dropdown"
+                                                    android:popupBackground="@color/white"
+                                                    android:background="@drawable/spinner_dropdown_background"
+                                                    android:dropDownVerticalOffset="12dp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    app:layout_constraintHorizontal_bias="0.5" />
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="15dp"
+                        android:elevation="4dp"
+                        app:cardUseCompatPadding="true"
+                        app:cardCornerRadius="12sp"
+                        android:layout_marginVertical="15sp"
+                        android:layout_height="wrap_content">
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+                            <!-- Batches RecyclerView -->
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/batchRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"/>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <Button android:layout_height="wrap_content"
+                        android:text="Take Attendance"
+                        android:layout_gravity="center"
+                        android:id="@+id/takeAttendance"
+                        android:layout_marginBottom="10sp"
+                        android:layout_width="wrap_content"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

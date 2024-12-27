@@ -109,7 +109,7 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        BatchAdapter batchAdapter = new BatchAdapter(batchList, getContext(), true); // Replace with your adapter instance
+        BatchAdapter batchAdapter = new BatchAdapter(batchList, getContext(), true, true); // Replace with your adapter instance
         batchRecycler.setAdapter(batchAdapter);
 
         // Set up the "Done" button

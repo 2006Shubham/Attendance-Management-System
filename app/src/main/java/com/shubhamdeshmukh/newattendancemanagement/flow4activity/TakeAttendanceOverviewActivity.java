@@ -11,11 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.shubhamdeshmukh.newattendancemanagement.R;
+import com.shubhamdeshmukh.newattendancemanagement.adaptermodelclass.Batch;
+import com.shubhamdeshmukh.newattendancemanagement.recycleradapters.BatchAdapter;
+
+import java.util.ArrayList;
 
 public class    TakeAttendanceOverviewActivity extends AppCompatActivity {
 
@@ -24,6 +30,12 @@ public class    TakeAttendanceOverviewActivity extends AppCompatActivity {
     private Button button;
 
     Intent intent ;
+
+    RecyclerView recyclerView;
+    BatchAdapter batchAdapter;
+
+    ArrayList<Batch> batchArrayList;
+
 
 
     ImageView imageView;
@@ -48,6 +60,22 @@ public class    TakeAttendanceOverviewActivity extends AppCompatActivity {
 
         button = findViewById(R.id.okBtn);
         button.setOnClickListener(view -> startActivity(intent));
+
+        recyclerView = findViewById(R.id.reviewBatchRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        batchArrayList = new ArrayList<>();
+
+        batchArrayList.add(new Batch("A"));
+        batchArrayList.add(new Batch("B"));
+        batchArrayList.add(new Batch("C"));
+        batchArrayList.add(new Batch("D"));
+        batchArrayList.add(new Batch("E"));
+
+
+        batchAdapter = new BatchAdapter(batchArrayList, this,true,false);
+        recyclerView.setAdapter(batchAdapter);
+
+
 
     }
 

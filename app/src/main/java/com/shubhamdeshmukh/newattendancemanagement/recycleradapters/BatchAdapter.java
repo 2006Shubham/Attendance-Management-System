@@ -22,6 +22,15 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.ViewHolder> 
 
     Boolean showCheckBox ;
 
+    Boolean clikable ;
+
+    public BatchAdapter(ArrayList<Batch> batchArrayList, Context context, boolean showCheckBox, boolean clikable) {
+        this.batchArrayList = batchArrayList;
+        this.context = context;
+        this.showCheckBox = showCheckBox;
+        this.clikable = clikable;
+    }
+
     public BatchAdapter(ArrayList<Batch> batchArrayList, Context context, boolean showCheckBox) {
         this.batchArrayList = batchArrayList;
         this.context = context;
@@ -46,6 +55,12 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.ViewHolder> 
             holder.checkBox.setVisibility(View.VISIBLE);
         }else {
             holder.checkBox.setVisibility(View.GONE);
+        }
+
+        if (clikable){
+            holder.checkBox.setClickable(true);
+        }else {
+            holder.checkBox.setClickable(false);
         }
     }
 

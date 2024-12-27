@@ -2,12 +2,12 @@ package com.shubhamdeshmukh.newattendancemanagement.adaptermodelclass;
 
 public class Student {
     private String name;
-    private String id;
+    private String rollNumber;
     private boolean isChecked;
 
-    public Student(String name, String id, boolean isChecked) {
+    public Student(String name, String rollNumber, boolean isChecked) {
         this.name = name;
-        this.id = id;
+        this.rollNumber = rollNumber;
         this.isChecked = isChecked;
     }
 
@@ -15,8 +15,8 @@ public class Student {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public String getRollNumber() {
+        return rollNumber;
     }
 
     public boolean isChecked() {
@@ -27,4 +27,3 @@ public class Student {
         isChecked = checked;
     }
 }
-

@@ -26,7 +26,7 @@
 
         <!-- Name -->
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/studentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imgProfile"
@@ -38,10 +38,10 @@
 
         <!-- ID -->
         <TextView
-            android:id="@+id/txtId"
+            android:id="@+id/studentID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtName"
+            android:layout_below="@id/studentName"
             android:layout_toEndOf="@id/imgProfile"
             android:layout_marginStart="16dp"
             android:text="12345"

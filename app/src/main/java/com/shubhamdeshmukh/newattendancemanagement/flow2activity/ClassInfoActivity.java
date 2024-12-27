@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -66,7 +65,7 @@ public class ClassInfoActivity extends AppCompatActivity {
         batchArrayList.add(new Batch("E"));
 
 
-        batchAdapter = new BatchAdapter(batchArrayList,this,false);
+        batchAdapter = new BatchAdapter(batchArrayList,this,false, true);
         recyclerView.setAdapter(batchAdapter);
 
 
