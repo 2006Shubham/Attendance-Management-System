@@ -25,6 +25,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
+                android:id="@+id/profile"
                 android:src="@drawable/profile"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"/>

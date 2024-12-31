@@ -2,14 +2,17 @@ package com.shubhamdeshmukh.newattendancemanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -22,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.shubhamdeshmukh.newattendancemanagement.flow1activity.SubjectInfoActivity;
 import com.shubhamdeshmukh.newattendancemanagement.flow1fragments.HomeFragment;
+import com.shubhamdeshmukh.newattendancemanagement.flow1fragments.ProfileFragment;
 import com.shubhamdeshmukh.newattendancemanagement.flow1fragments.SubjectFragment;
 import com.shubhamdeshmukh.newattendancemanagement.flow2fragments.ClassFragment;
 import com.shubhamdeshmukh.newattendancemanagement.flow3fragments.ScheduleFragment;
@@ -37,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView imageView;
     TextView fragname;
 
+    ImageView profile;
 
 
     @Override
@@ -51,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         toolbar =  findViewById(R.id.toolBar);
         imageView  = findViewById(R.id.menue_stick);
         fragname = findViewById(R.id.toolbar_title);
-
+        profile = findViewById(R.id.imageView);
 
 
         setSupportActionBar(toolbar);
@@ -59,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.OpenDrawer,R.string.CloseDrawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +77,24 @@ public class HomeActivity extends AppCompatActivity {
                             drawerLayout.openDrawer(GravityCompat.START);
 
                          }
+            }
+        });
+
+
+        if (savedInstanceState == null) {
+            // Load HomeFragment by default
+            Fragment homeFragment = new HomeFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.containerHome, homeFragment) // Make sure the container ID matches
+                    .commit();
+        }
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new ProfileFragment());
+                fragname.setText("Profile");
             }
         });
 
@@ -107,6 +131,11 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(new TakeAttendanceFragment());
                     fragname.setText("Take Attendance");
 
+                } else if (id==R.id.logout) {
+
+
+                    showPopUp();
+
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -134,6 +163,42 @@ public class HomeActivity extends AppCompatActivity {
             // If the drawer is not open, proceed with default back behavior
             super.onBackPressed();
         }
+    }
+
+    private void showPopUp() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.logout_popup, null);
+
+        // Set custom view to dialog
+        builder.setView(dialogView);
+
+        // Add actions if needed
+        TextView yes = dialogView.findViewById(R.id.yes);
+
+        TextView no = dialogView.findViewById(R.id.no);
+
+
+        AlertDialog dialog = builder.create();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 
